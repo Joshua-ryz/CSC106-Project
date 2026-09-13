@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Requests - StudyLink</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                StudyLink
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="find-tutor.html" class="nav-link">Find a Tutor</a></li>
+                <li><a href="tutor-profile.html" class="nav-link">Become a Tutor</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="register.html" class="nav-link">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header py-4 bg-light">
+        <div class="container">
+            <h1><i class="fas fa-list me-2"></i>Tutor Requests</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="tutor-requests-section py-4">
+        <div class="container">
+            <!-- Alert Message -->
+            <div id="requests-alert"></div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Pending Tutoring Requests</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="requests-list">
+                                <!-- Requests will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer mt-5>
+        <div class="container">
+            <div class="row g-4>
+                <div class="col-md-3 col-sm-6>
+                    <h3>StudyLink</h3>
+                    <p>A peer tutoring platform designed for CSU students to connect, learn, and succeed together.</p>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="find-tutor.html">Find a Tutor</a></li>
+                        <li><a href="tutor-profile.html">Become a Tutor</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="text-me-2><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-me-2><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-me-2><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4 pt-3 border-top>
+                <p>&copy; 2026 StudyLink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/mock-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load tutor requests
+            loadTutorRequests();
+        });
+
+        function loadTutorRequests() {
+            const requestsList = document.getElementById('requests-list');
+            const requestsAlert = document.getElementById('requests-alert');
+
+            if (!requestsList) return;
+
+            // Mock tutor requests
+            const mockRequests = [
+                {
+                    id: 1,
+                    studentName: "Alex Rivera",
+                    studentAvatar: "https://via.placeholder.com/50x50?text=AR",
+                    studentId: "2022-12345",
+                    subject: "Java Programming",
+                    topic: "Object-Oriented Programming Concepts",
+                    date: "2026-09-20",
+                    time: "14:00",
+                    message: "Hi Juan, I'm struggling with understanding inheritance and polymorphism in Java. Could you help me grasp these concepts better?",
+                    status: "pending"
+                },
+                {
+                    id: 2,
+                    studentName: "Maria Garcia",
+                    studentAvatar: "https://via.placeholder.com/50x50?text=MG",
+                    studentId: "2022-67890",
+                    subject: "Calculus",
+                    topic: "Integration Techniques",
+                    date: "2026-09-21",
+                    time: "10:00",
+                    message: "I need help with integration by parts and trigonometric substitution for my upcoming exam.",
+                    status: "pending"
+                },
+                {
+                    id: 3,
+                    studentName: "Carlos Mendoza",
+                    studentAvatar: "https://via.placeholder.com/50x50?text=CM",
+                    studentId: "2022-54321",
+                    subject: "Data Structures",
+                    topic: "Binary Trees and Traversal",
+                    date: "2026-09-22",
+                    time: "16:00",
+                    message: "I need help understanding how to implement and traverse binary trees efficiently.",
+                    status: "pending"
+                }
+            ];
+
+            requestsList.innerHTML = '';
+
+            if (mockRequests.length === 0) {
+                requestsList.innerHTML = '<p class="text-center text-muted py-4">No pending requests.</p>';
+                return;
+            }
+
+            mockRequests.forEach(request => {
+                const requestElement = document.createElement('div');
+                requestElement.className = 'card mb-3';
+                requestElement.innerHTML = `
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="flex-grow-1">
+                                <div class="d-flex align-items-start">
+                                    <div class="flex-shrink-0">
+                                        <img src="${request.studentAvatar}" alt="${request.studentName}" class="rounded-circle me-3" width="50" height="50">
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-1">${request.studentName}</h5>
+                                        <p class="mb-1"><small>Student ID: ${request.studentId}</small></p>
+                                        <p class="mb-1"><small>${request.subject}</small></p>
+                                        <p class="mb-1"><small>${request.topic}</small></p>
+                                    </div>
+                                </div>
+                                <p class="mb-2">${request.message}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">${formatDate(request.date)} at ${formatTime(request.time)}</small>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="btn btn-sm btn-outline me-2" onclick="acceptRequest(${request.id})">Accept</button>
+                                <button class="btn btn-sm btn-outline" onclick="declineRequest(${request.id})">Decline</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                requestsList.appendChild(requestElement);
+            });
+        }
+
+        function acceptRequest(requestId) {
+            showAlert('Request accepted! The student has been notified.', 'success');
+            // In a real app, this would send an API request to accept the tutor request
+
+            // Remove the request from the list (for demo)
+            const requestElement = document.querySelector(`[onclick*="acceptRequest(${requestId})"]`);
+            if (requestElement) {
+                requestElement.closest('.card').remove();
+            }
+        }
+
+        function declineRequest(requestId) {
+            showAlert('Request declined. The student has been notified.', 'info');
+            // In a real app, this would send an API request to decline the tutor request
+
+            // Remove the request from the list (for demo)
+            const requestElement = document.querySelector(`[onclick*="declineRequest(${requestId})"]`);
+            if (requestElement) {
+                requestElement.closest('.card').remove();
+            }
+        }
+
+        // Helper functions
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        function formatTime(timeString) {
+            return timeString; // Assuming HH:MM format
+        }
+
+        // Helper function to show alerts
+        function showAlert(message, type) {
+            // Remove any existing alerts
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) existingAlert.remove();
+
+            // Create new alert
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <span>${message}</span>
+                <button class="alert-close">&times;</button>
+            `;
+
+            // Add to requests alert container or body
+            const container = document.getElementById('requests-alert');
+            if (container) {
+                container.innerHTML = ''; // Clear previous alerts
+                container.appendChild(alert);
+            } else {
+                document.body.prepend(alert);
+            }
+
+            // Add close functionality
+            alert.querySelector('.alert-close').addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentElement) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

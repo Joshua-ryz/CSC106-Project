@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Tutors - StudyLink</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                StudyLink
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="find-tutor.html" class="nav-link active">Find a Tutor</a></li>
+                <li><a href="tutor-profile.html" class="nav-link">Become a Tutor</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="register.html" class="nav-link">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header py-4 bg-light">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1><i class="fas fa-search me-2"></i>Find a Tutor</h1>
+                <a href="tutor-profile.html" class="btn btn-outline"><i class="fas fa-user-plus me-1"></i>Become a Tutor</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="tutor-search py-4">
+        <div class="container">
+            <!-- Search and Filters -->
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="tutorSearch" placeholder="Search by subject, course, or tutor name...">
+                        <button class="btn btn-outline-secondary" type="button" id="searchBtn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary w-100 dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-filter me-1"></i>Filter Tutors
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="filterDropdown">
+                            <li><h6 class="dropdown-header">Subject</h6></li>
+                            <li><a class="dropdown-item" href="#" data-filter="subject" data-value="programming">Programming</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="subject" data-value="mathematics">Mathematics</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="subject" data-value="computer-science">Computer Science</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="subject" data-value="sciences">Sciences</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="subject" data-value="languages">Languages</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Rating</h6></li>
+                            <li><a class="dropdown-item" href="#" data-filter="rating" data-value="4up">4★ & Up</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="rating" data-value="3up">3★ & Up</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><h6 class="dropdown-header">Availability</h6></li>
+                            <li><a class="dropdown-item" href="#" data-filter="availability" data-value="weekdays">Weekdays</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="availability" data-value="weekends">Weekends</a></li>
+                            <li><a class="dropdown-item" href="#" data-filter="availability" data-value="evenings">Evenings</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sort Options -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <p class="text-muted">Showing <span id="tutorsCount">0</span> tutors</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <select class="form-select form-select-sm" id="sortSelect" style="width: auto; display: inline-block;">
+                        <option value="rating-high">Sort by Rating (High to Low)</option>
+                        <option value="rating-low">Sort by Rating (Low to High)</option>
+                        <option value="name-asc">Sort by Name (A-Z)</option>
+                        <option value="name-desc">Sort by Name (Z-A)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Tutors Grid -->
+            <div class="row g-4" id="tutorsGrid">
+                <!-- Tutor cards will be injected here -->
+            </div>
+
+            <!-- No Results Message -->
+            <div class="row" id="noResults">
+                <div class="col-12">
+                    <div class="text-center py-5">
+                        <i class="fas fa-search fa-4x mb-3 text-muted"></i>
+                        <p class="lead">No tutors found matching your criteria.</p>
+                        <p class="text-muted">Try adjusting your search or filters.</p>
+                        <a href="tutor-profile.html" class="btn btn-outline mt-3"><i class="fas fa-user-plus me-1"></i>Become a Tutor</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3 col-sm-6">
+                    <h3>StudyLink</h3>
+                    <p>A peer tutoring platform designed for CSU students to connect, learn, and succeed together.</p>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="find-tutor.html">Find a Tutor</a></li>
+                        <li><a href="tutor-profile.html">Become a Tutor</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="text-me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-me-2"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4 pt-3 border-top">
+                <p>&copy; 2026 StudyLink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/mock-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize tutor search and filtering
+            initializeTutorSearch();
+
+            // Load initial tutors
+            loadTutors();
+        });
+
+        function initializeTutorSearch() {
+            const searchBtn = document.getElementById('searchBtn');
+            const tutorSearch = document.getElementById('tutorSearch');
+            const sortSelect = document.getElementById('sortSelect');
+            const filterDropdown = document.getElementById('filterDropdown');
+            const tutorsGrid = document.getElementById('tutorsGrid');
+            const noResults = document.getElementById('noResults');
+            const tutorsCount = document.getElementById('tutorsCount');
+
+            // Search button click
+            if (searchBtn && tutorSearch) {
+                searchBtn.addEventListener('click', function() {
+                    loadTutors();
+                });
+
+                // Allow Enter key to trigger search
+                tutorSearch.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        loadTutors();
+                    }
+                });
+            }
+
+            // Dropdown item clicks
+            if (filterDropdown) {
+                filterDropdown.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('dropdown-item')) {
+                        e.preventDefault();
+                        const filterType = e.target.getAttribute('data-filter');
+                        const filterValue = e.target.getAttribute('data-value');
+                        applyFilter(filterType, filterValue);
+                        loadTutors();
+                    }
+                });
+            }
+
+            // Sort change
+            if (sortSelect) {
+                sortSelect.addEventListener('change', function() {
+                    loadTutors();
+                });
+            }
+        }
+
+        function applyFilter(filterType, filterValue) {
+            // Store filter in sessionStorage for simplicity
+            let filters = JSON.parse(sessionStorage.getItem('tutorFilters') || '{}');
+
+            if (filterValue === '') {
+                // Remove filter
+                delete filters[filterType];
+            } else {
+                // Add/update filter
+                filters[filterType] = filterValue;
+            }
+
+            sessionStorage.setItem('tutorFilters', JSON.stringify(filters));
+
+            // Update button text to show active filters
+            updateFilterButtonText();
+        }
+
+        function updateFilterButtonText() {
+            const filterBtn = document.getElementById('filterDropdown');
+            if (!filterBtn) return;
+
+            const filters = JSON.parse(sessionStorage.getItem('tutorFilters') || '{}');
+            const filterKeys = Object.keys(filters);
+
+            if (filterKeys.length === 0) {
+                filterBtn.innerHTML = '<i class="fas fa-filter me-1"></i>Filter Tutors';
+            } else {
+                // Show first filter only for simplicity
+                const firstFilter = filterKeys[0];
+                const filterValue = filters[firstFilter];
+                let displayText = '';
+
+                switch(firstFilter) {
+                    case 'subject':
+                        displayText = `Subject: ${filterValue}`;
+                        break;
+                    case 'rating':
+                        displayText = `Rating: ${filterValue}`;
+                        break;
+                    case 'availability':
+                        displayText = `Availability: ${filterValue}`;
+                        break;
+                    default:
+                        displayText = `${firstFilter}: ${filterValue}`;
+                }
+
+                filterBtn.innerHTML = `<i class="fas fa-filter me-1"></i>${displayText}`;
+            }
+        }
+
+        function loadTutors() {
+            const tutorsGrid = document.getElementById('tutorsGrid');
+            const noResults = document.getElementById('noResults');
+            const tutorsCount = document.getElementById('tutorsCount');
+
+            if (!tutorsGrid || !noResults || !tutorsCount) return;
+
+            // Show loading state
+            tutorsGrid.innerHTML = '<div class="col-12"><div class="text-center py-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div></div>';
+            noResults.style.display = 'none';
+
+            // Get search term
+            const searchTerm = document.getElementById('tutorSearch') ? document.getElementById('tutorSearch').value.trim() : '';
+
+            // Get filters
+            const filters = JSON.parse(sessionStorage.getItem('tutorFilters') || '{}');
+
+            // Add search term to filters
+            if (searchTerm) {
+                filters.search = searchTerm;
+            }
+
+            // Get tutors based on filters
+            let filteredTutors = getTutors(filters);
+
+            // Apply search if needed
+            if (searchTerm) {
+                filteredTutors = filteredTutors.filter(tutor =>
+                    tutor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    tutor.program.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    tutor.subjects.some(subject => subject.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                    tutor.expertise.some(expertise => expertise.toLowerCase().includes(searchTerm.toLowerCase()))
+                );
+            }
+
+            // Get sort option
+            const sortOption = document.getElementById('sortSelect') ? document.getElementById('sortSelect').value : 'rating-high';
+            filteredTutors = sortTutors(filteredTutors, sortOption);
+
+            // Update count
+            tutorsCount.textContent = filteredTutors.length;
+
+            // Hide loading state
+            setTimeout(() => {
+                if (filteredTutors.length === 0) {
+                    tutorsGrid.innerHTML = '';
+                    noResults.style.display = 'block';
+                } else {
+                    tutorsGrid.innerHTML = '';
+                    noResults.style.display = 'none';
+
+                    // Create tutor cards
+                    filteredTutors.forEach(tutor => {
+                        const tutorCard = document.createElement('div');
+                        tutorCard.className = 'col-md-4';
+                        tutorCard.innerHTML = createTutorCard(tutor);
+                        tutorsGrid.appendChild(tutorCard);
+                    });
+                }
+            }, 500); // Simulate loading delay
+        }
+
+        function createTutorCard(tutor) {
+            return `
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <h5 class="card-title mb-1">${tutor.name}</h5>
+                                <p class="card-text text-muted small mb-1">${tutor.program} • ${tutor.year} Year</p>
+                            </div>
+                            <div class="rating">
+                                <div class="rating-stars">
+                                    ${Array(5).fill(0).map((_, i) =>
+                                        `<svg class="star ${i < tutor.rating ? '' : 'star-outline'}" width="12" height="12" viewBox="0 0 24 24"><path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`
+                                    ).join('')}
+                                </div>
+                                <span class="ms-1">${tutor.rating}</span>
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
+                            <h6 class="mb-1">Subjects:</h6>
+                            <div class="subject-tags">
+                                ${tutor.subjects.slice(0, 3).map(subject =>
+                                    `<span class="badge bg-light text-primary me-1 mb-1">${subject}</span>`
+                                ).join('')}
+                                ${tutor.subjects.length > 3 ?
+                                    `<span class="badge bg-light text-primary me-1 mb-1">+${tutor.subjects.length - 3} more</span>` : ''
+                                }
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
+                            <h6 class="mb-1">Availability:</h6>
+                            <p class="text-muted small mb-0">${tutor.availability.join(', ')}</p>
+                        </div>
+
+                        <div class="mt-auto">
+                            <p class="text-muted small mb-2">${tutor.reviews} reviews • ${tutor.responseTime} response time</p>
+                            <div class="d-grid gap-2">
+                                <a href="tutor-profile.html?id=${tutor.id}" class="btn btn-outline"><i class="fas fa-user me-1"></i>View Profile</a>
+                                <button class="btn btn-primary" onclick="requestSession(${tutor.id})"><i class="fas fa-calendar-plus me-1"></i>Request Session</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function requestSession(tutorId) {
+            // Check if user is logged in (mock)
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+
+            if (!isLoggedIn) {
+                showAlert('Please log in to request a tutoring session', 'info');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
+                return;
+            }
+
+            // Find tutor details
+            const tutor = mockTutors.find(t => t.id === tutorId);
+            if (!tutor) {
+                showAlert('Tutor not found', 'error');
+                return;
+            }
+
+            // Store selected tutor in session for the request form
+            sessionStorage.setItem('selectedTutorId', tutorId.toString());
+            sessionStorage.setItem('selectedTutorName', tutor.name);
+
+            // Redirect to request session page
+            window.location.href = 'request-session.html';
+        }
+
+        // Helper function to show alerts
+        function showAlert(message, type) {
+            // Remove any existing alerts
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) existingAlert.remove();
+
+            // Create new alert
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <span>${message}</span>
+                <button class="alert-close">&times;</button>
+            `;
+
+            // Add to page header or body
+            const container = document.querySelector('.container');
+            if (container) {
+                // Insert after navbar
+                const navbar = document.querySelector('.navbar');
+                if (navbar) {
+                    navbar.insertAdjacentElement('afterend', alert);
+                } else {
+                    container.prepend(alert);
+                }
+            } else {
+                document.body.prepend(alert);
+            }
+
+            // Add close functionality
+            alert.querySelector('.alert-close').addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentElement) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

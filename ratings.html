@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Your Tutor - StudyLink</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container d-flex justify-content-between align-items-center>
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                StudyLink
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="navbar-nav>
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="find-tutor.html" class="nav-link">Find a Tutor</a></li>
+                <li><a href="tutor-profile.html" class="nav-link">Become a Tutor</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="register.html" class="nav-link">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header py-4 bg-light>
+        <div class="container>
+            <h1><i class="fas fa-star me-2></i>Rate Your Tutor</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="ratings-section py-4>
+        <div class="container>
+            <div class="row justify-content-center>
+                <div class="col-md-8>
+                    <div class="card>
+                        <div class="card-header>
+                            <h4>Rate Your Recent Tutoring Session</h4>
+                        </div>
+                        <div class="card-body>
+                            <!-- Alert Message -->
+                            <div id="ratings-alert></div>
+
+                            <!-- Check if user has a recent session to rate -->
+                            <div id="session-info>
+                                <!-- Session info will be loaded here -->
+                            </div>
+
+                            <form id="ratings-form" data-mock-submit>
+                                <div class="mb-3>
+                                    <label for="tutor-name" class="form-label">Tutor Name</label>
+                                    <input type="text" class="form-control" id="tutor-name" readonly>
+                                </div>
+
+                                <div class="mb-3>
+                                    <label for="session-subject" class="form-label">Session Subject</label>
+                                    <input type="text" class="form-control" id="session-subject" readonly>
+                                </div>
+
+                                <div class="mb-3>
+                                    <label for="session-date" class="form-label">Session Date</label>
+                                    <input type="text" class="form-control" id="session-date" readonly>
+                                </div>
+
+                                <div class="mb-3>
+                                    <label for="rating" class="form-label">Rating (1-5 stars)</label>
+                                    <div class="rating-stars-container>
+                                        <div class="rating-stars" id="rating-stars>
+                                            <!-- Stars will be generated here -->
+                                        </div>
+                                        <input type="hidden" id="rating-value" name="rating" value="0">
+                                        <small class="text-muted" id="rating-text">Select a rating</small>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3>
+                                    <label for="feedback" class="form-label">Feedback</label>
+                                    <textarea class="form-control" id="feedback" rows="5" placeholder="Share your experience with this tutoring session..." required></textarea>
+                                </div>
+
+                                <div class="d-grid gap-2>
+                                    <button type="submit" class="btn btn-primary">Submit Rating</button>
+                                    <button type="button" class="btn btn-outline" onclick="window.location.href='student-dashboard.html'">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer mt-5>
+        <div class="container>
+            <div class="row g-4>
+                <div class="col-md-3 col-sm-6>
+                    <h3>StudyLink</h3>
+                    <p>A peer tutoring platform designed for CSU students to connect, learn, and succeed together.</p>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="find-tutor.html">Find a Tutor</a></li>
+                        <li><a href="tutor-profile.html">Become a Tutor</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Support</h3>
+                    <ul class="footer-links>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Follow Us</h3>
+                    <div class="social-icons>
+                        <a href="#" class="text-me-2><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-me-2><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-me-2><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4 pt-3 border-top>
+                <p>&copy; 2026 StudyLink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/mock-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load session information for rating
+            loadSessionInfo();
+
+            // Initialize rating stars
+            initializeRatingStars();
+
+            // Initialize form
+            initializeForm();
+        });
+
+        function loadSessionInfo() {
+            const sessionInfo = document.getElementById('session-info');
+            const tutorNameInput = document.getElementById('tutor-name');
+            const sessionSubjectInput = document.getElementById('session-subject');
+            const sessionDateInput = document.getElementById('session-date');
+
+            if (!sessionInfo || !tutorNameInput || !sessionSubjectInput || !sessionDateInput) return;
+
+            // Mock session data (in a real app, this would come from the user's recent completed session)
+            const mockSession = {
+                tutorName: "Juan Dela Cruz",
+                tutorAvatar: "https://via.placeholder.com/50x50?text=JD",
+                subject: "Java Programming",
+                date: "2026-09-10"
+            };
+
+            // Display session info
+            sessionInfo.innerHTML = `
+                <div class="alert alert-info mb-4>
+                    <div class="d-flex align-items-center>
+                        <img src="${mockSession.tutorAvatar}" alt="${mockSession.tutorName}" class="rounded-circle me-3" width="40" height="40">
+                        <div>
+                            <p class="mb-0><strong>Tutor:</strong> ${mockSession.tutorName}</p>
+                            <p class="mb-0><strong>Subject:</strong> ${mockSession.subject}</p>
+                            <p class="mb-0><strong>Date:</strong> ${formatDate(mockSession.date)}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Fill in form fields
+            tutorNameInput.value = mockSession.tutorName;
+            sessionSubjectInput.value = mockSession.subject;
+            sessionDateInput.value = formatDate(mockSession.date);
+        }
+
+        function initializeRatingStars() {
+            const starsContainer = document.getElementById('rating-stars');
+            const ratingValueInput = document.getElementById('rating-value');
+            const ratingText = document.getElementById('rating-text');
+
+            if (!starsContainer || !ratingValueInput || !ratingText) return;
+
+            // Clear existing stars
+            starsContainer.innerHTML = '';
+
+            // Create 5 stars
+            for (let i = 1; i <= 5; i++) {
+                const star = document.createElement('span');
+                star.className = 'star';
+                star.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
+                star.dataset.rating = i;
+                star.addEventListener('mouseover', function() {
+                    highlightStars(parseInt(this.dataset.rating));
+                });
+                star.addEventListener('mouseout', function() {
+                    highlightStars(parseInt(ratingValueInput.value));
+                });
+                star.addEventListener('click', function() {
+                    selectRating(parseInt(this.dataset.rating));
+                });
+
+                starsContainer.appendChild(star);
+            }
+
+            // Initialize with no rating selected
+            highlightStars(0);
+            ratingText.textContent = 'Select a rating';
+        }
+
+        function highlightStars(rating) {
+            const stars = document.querySelectorAll('#rating-stars .star');
+            stars.forEach((star, index) => {
+                const starRating = index + 1;
+                if (starRating <= rating) {
+                    star.style.color = '#ffc107'; // Gold color for selected stars
+                } else {
+                    star.style.color = '#e9ecef'; // Light gray for unselected stars
+                }
+            });
+        }
+
+        function selectRating(rating) {
+            const ratingValueInput = document.getElementById('rating-value');
+            const ratingText = document.getElementById('rating-text');
+
+            if (!ratingValueInput || !ratingText) return;
+
+            ratingValueInput.value = rating;
+            ratingText.textContent = `${rating} / 5`;
+
+            // Keep the highlight
+            highlightStars(rating);
+        }
+
+        function initializeForm() {
+            const ratingsForm = document.getElementById('ratings-form');
+            const ratingsAlert = document.getElementById('ratings-alert');
+
+            if (ratingsForm) {
+                ratingsForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    // Clear previous alerts
+                    if (ratingsAlert) {
+                        ratingsAlert.innerHTML = '';
+                    }
+
+                    // Validate form
+                    const tutorName = document.getElementById('tutor-name').value;
+                    const sessionSubject = document.getElementById('session-subject').value;
+                    const sessionDate = document.getElementById('session-date').value;
+                    const ratingValue = document.getElementById('rating-value').value;
+                    const feedback = document.getElementById('feedback').value.trim();
+
+                    if (!tutorName) {
+                        showAlert('Tutor name is missing', 'error');
+                        return;
+                    }
+
+                    if (!sessionSubject) {
+                        showAlert('Session subject is missing', 'error');
+                        return;
+                    }
+
+                    if (!sessionDate) {
+                        showAlert('Session date is missing', 'error');
+                        return;
+                    }
+
+                    if (ratingValue === '0' || ratingValue === '') {
+                        showAlert('Please select a rating', 'error');
+                        return;
+                    }
+
+                    if (!feedback) {
+                        showAlert('Please provide feedback', 'error');
+                        return;
+                    }
+
+                    // Show loading state
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    const originalText = submitButton.textContent;
+                    submitButton.textContent = 'Submitting rating...';
+                    submitButton.disabled = true;
+
+                    // Simulate API call
+                    setTimeout(() => {
+                        // Mock rating submission success
+                        mockRatingSubmission({
+                            tutorName,
+                            sessionSubject,
+                            sessionDate,
+                            rating: parseInt(ratingValue),
+                            feedback
+                        });
+
+                        submitButton.textContent = originalText;
+                        submitButton.disabled = false;
+                    }, 1500);
+                });
+            }
+        }
+
+        function mockRatingSubmission(ratingData) {
+            // In a real app, this would send data to a backend API
+            // For mock purposes, we'll just show success
+
+            showAlert('Thank you for your feedback! Your rating has been submitted.', 'success');
+
+            // Reset form
+            document.getElementById('ratings-form').reset();
+            document.getElementById('rating-value').value = '0';
+            document.getElementById('rating-text').textContent = 'Select a rating';
+            highlightStars(0);
+
+            // Redirect to student dashboard after successful submission
+            setTimeout(() => {
+                window.location.href = 'student-dashboard.html';
+            }, 1500);
+        }
+
+        // Helper functions
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        // Helper function to show alerts
+        function showAlert(message, type) {
+            // Remove any existing alerts
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) existingAlert.remove();
+
+            // Create new alert
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <span>${message}</span>
+                <button class="alert-close">&times;</button>
+            `;
+
+            // Add to alert container or body
+            const container = document.getElementById('ratings-alert');
+            if (container) {
+                container.innerHTML = ''; // Clear previous alerts
+                container.appendChild(alert);
+            } else {
+                document.body.prepend(alert);
+            }
+
+            // Add close functionality
+            alert.querySelector('.alert-close').addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentElement) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

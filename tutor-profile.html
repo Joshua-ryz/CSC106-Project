@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Profile - StudyLink</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                StudyLink
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="find-tutor.html" class="nav-link">Find a Tutor</a></li>
+                <li><a href="tutor-profile.html" class="nav-link active">Become a Tutor</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="register.html" class="nav-link">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header py-4 bg-light">
+        <div class="container">
+            <h1><i class="fas fa-user-graduate me-2"></i>Tutor Profile</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="tutor-profile-section py-4">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Tutor Info -->
+                <div class="col-lg-4">
+                    <div id="tutor-info">
+                        <!-- Tutor profile will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Tutor Details -->
+                <div class="col-lg-8">
+                    <div id="tutor-details">
+                        <!-- Tutor details will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3 col-sm-6>
+                    <h3>StudyLink</h3>
+                    <p>A peer tutoring platform designed for CSU students to connect, learn, and succeed together.</p>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="find-tutor.html">Find a Tutor</a></li>
+                        <li><a href="tutor-profile.html">Become a Tutor</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="text-me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-me-2"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4 pt-3 border-top">
+                <p>&copy; 2026 StudyLink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/mock-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load tutor profile based on ID in URL
+            loadTutorProfile();
+        });
+
+        function loadTutorProfile() {
+            const tutorInfoContainer = document.getElementById('tutor-info');
+            const tutorDetailsContainer = document.getElementById('tutor-details');
+
+            if (!tutorInfoContainer || !tutorDetailsContainer) return;
+
+            // Get tutor ID from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const tutorId = parseInt(urlParams.get('id'));
+
+            // If no ID provided, show first tutor as example
+            const tutor = tutorId && !isNaN(tutorId)
+                ? mockTutors.find(t => t.id === tutorId)
+                : mockTutors[0];
+
+            if (!tutor) {
+                tutorInfoContainer.innerHTML = '<p class="text-center py-5">Tutor not found.</p>';
+                tutorDetailsContainer.innerHTML = '';
+                return;
+            }
+
+            // Load tutor info (left side)
+            tutorInfoContainer.innerHTML = `
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <img src="${tutor.avatar}" alt="${tutor.name}" class="rounded-circle mb-4" width="150" height="150">
+                        <h2>${tutor.name}</h2>
+                        <p class="text-muted mb-3">${tutor.program} • ${tutor.year} Year</p>
+
+                        <div class="rating mb-3">
+                            <div class="rating-stars">
+                                ${Array(5).fill(0).map((_, i) =>
+                                    `<svg class="star ${i < tutor.rating ? '' : 'star-outline'}" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`
+                                ).join('')}
+                            </div>
+                            <span class="ms-2">${tutor.rating}/5</span>
+                            <small class="text-muted ms-2">(${tutor.reviews} reviews)</small>
+                        </div>
+
+                        <p class="mb-3"><strong>Response Time:</strong> ${tutor.responseTime}</p>
+                        <p class="mb-3"><strong>Sessions Completed:</strong> ${tutor.sessionsCompleted}</p>
+
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline" onclick="window.location.href='messages.html'"><i class="fas fa-comment me-1"></i>Message Tutor</button>
+                            <button class="btn btn-primary" onclick="requestSession(${tutor.id})"><i class="fas fa-calendar-plus me-1"></i>Request Session</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Load tutor details (right side)
+            tutorDetailsContainer.innerHTML = `
+                <div class="card">
+                    <div class="card-header">
+                        <h4>About ${tutor.name}</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>${tutor.bio}</p>
+
+                        <div class="mb-4">
+                            <h5>Subjects</h5>
+                            <div class="subject-tags">
+                                ${tutor.subjects.map(subject =>
+                                    `<span class="badge bg-light text-primary me-1 mb-1">${subject}</span>`
+                                ).join('')}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5>Areas of Expertise</h5>
+                            <div class="expertise-tags">
+                                ${tutor.expertise.map(expertise =>
+                                    `<span class="badge bg-light text-secondary me-1 mb-1">${expertise}</span>`
+                                ).join('')}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5>Availability</h5>
+                            <div class="availability-tags">
+                                ${tutor.availability.map(day =>
+                                    `<span class="badge bg-light text-success me-1 mb-1">${day}</span>`
+                                ).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h4>Reviews and Ratings</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="tutor-reviews">
+                            <!-- Reviews will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Load reviews
+            loadTutorReviews(tutor.id);
+        }
+
+        function loadTutorReviews(tutorId) {
+            const reviewsContainer = document.getElementById('tutor-reviews');
+            if (!reviewsContainer) return;
+
+            // Filter reviews for this tutor
+            const tutorReviews = mockReviews.filter(review =>
+                // In a real app, we'd match by tutor ID
+                // For mock, we'll just show some reviews
+                true
+            ).slice(0, 3); // Show first 3 reviews
+
+            if (tutorReviews.length === 0) {
+                reviewsContainer.innerHTML = '<p class="text-center text-muted py-3">No reviews yet. Be the first to leave a review!</p>';
+                return;
+            }
+
+            reviewsContainer.innerHTML = '';
+
+            tutorReviews.forEach(review => {
+                const reviewElement = document.createElement('div');
+                reviewElement.className = 'mb-3';
+                reviewElement.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-start mb-1">
+                        <div>
+                            <h6 class="mb-1">${review.studentName}</h6>
+                            <div class="rating">
+                                <div class="rating-stars">
+                                    ${Array(5).fill(0).map((_, i) =>
+                                        `<svg class="star ${i < review.rating ? '' : 'star-outline'}" width="12" height="12" viewBox="0 0 24 24"><path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`
+                                    ).join('')}
+                                </div>
+                                <span class="ms-1">${review.rating}/5</span>
+                            </div>
+                        </div>
+                        <small class="text-muted">${review.date}</small>
+                    </div>
+                    <p class="mb-0">${review.comment}</p>
+                `;
+                reviewsContainer.appendChild(reviewElement);
+            });
+        }
+
+        function requestSession(tutorId) {
+            // Check if user is logged in (mock)
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+
+            if (!isLoggedIn) {
+                showAlert('Please log in to request a tutoring session', 'info');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
+                return;
+            }
+
+            // Find tutor details
+            const tutor = mockTutors.find(t => t.id === tutorId);
+            if (!tutor) {
+                showAlert('Tutor not found', 'error');
+                return;
+            }
+
+            // Store selected tutor in session for the request form
+            sessionStorage.setItem('selectedTutorId', tutorId.toString());
+            sessionStorage.setItem('selectedTutorName', tutor.name);
+
+            // Redirect to request session page
+            window.location.href = 'request-session.html';
+        }
+
+        // Helper function to show alerts
+        function showAlert(message, type) {
+            // Remove any existing alerts
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) existingAlert.remove();
+
+            // Create new alert
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <span>${message}</span>
+                <button class="alert-close">&times;</button>
+            `;
+
+            // Add to page header or body
+            const container = document.querySelector('.container');
+            if (container) {
+                // Insert after navbar
+                const navbar = document.querySelector('.navbar');
+                if (navbar) {
+                    navbar.insertAdjacentElement('afterend', alert);
+                } else {
+                    container.prepend(alert);
+                }
+            } else {
+                document.body.prepend(alert);
+            }
+
+            // Add close functionality
+            alert.querySelector('.alert-close').addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentElement) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

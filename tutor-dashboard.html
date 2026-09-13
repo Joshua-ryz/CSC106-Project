@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor Dashboard - StudyLink</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                StudyLink
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="find-tutor.html" class="nav-link">Find a Tutor</a></li>
+                <li><a href="tutor-profile.html" class="nav-link">Become a Tutor</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="register.html" class="nav-link">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header py-4 bg-light">
+        <div class="container">
+            <h1><i class="fas fa-tachometer-alt me-2"></i>Tutor Dashboard</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="dashboard-section py-4">
+        <div class="container">
+            <!-- Welcome Message -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="alert alert-info">
+                        <i class="fas fa-user me-2"></i>
+                        Welcome back, <span id="user-name">Juan Dela Cruz</span>! Here's your tutoring overview.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-calendar-check text-primary fa-2x mb-3"></i>
+                            <h5>Upcoming Sessions</h5>
+                            <h2 id="upcoming-sessions">5</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-clock text-primary fa-2x mb-3"></i>
+                            <h5>Pending Requests</h5>
+                            <h2 id="pending-requests">3</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-check-double text-primary fa-2x mb-3"></i>
+                            <h5>Completed Sessions</h5>
+                            <h2 id="completed-sessions">28</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3>
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-star text-primary fa-2x mb-3"></i>
+                            <h5>Average Rating</h5>
+                            <h2 id="average-rating">4.8</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="row mb-4>
+                <div class="col-12>
+                    <ul class="nav nav-tabs" id="dashboardTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active tab-button" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab" aria-controls="upcoming" aria-selected="true">Upcoming Sessions</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link tab-button" id="requests-tab" data-bs-toggle="tab" data-bs-target="#requests" type="button" role="tab" aria-controls="requests" aria-selected="false">Pending Requests</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link tab-button" id="completed-tab" data-bs-toggle="tab" data-bs-target="#completed" type="button" role="tab" aria-controls="completed" aria-selected="false">Completed Sessions</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link tab-button" id="ratings-tab" data-bs-toggle="tab" data-bs-target="#ratings" type="button" role="tab" aria-controls="ratings" aria-selected="false">Ratings & Feedback</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="dashboardTabContent">
+                <!-- Upcoming Sessions Tab -->
+                <div class="tab-pane fade show active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
+                    <div id="upcoming-sessions-list">
+                        <!-- Upcoming sessions will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Pending Requests Tab -->
+                <div class="tab-pane fade" id="requests" role="tabpanel" aria-labelledby="requests-tab">
+                    <div id="tutor-requests-list">
+                        <!-- Tutor requests will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Completed Sessions Tab -->
+                <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab">
+                    <div id="completed-sessions-list">
+                        <!-- Completed sessions will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Ratings & Feedback Tab -->
+                <div class="tab-pane fade" id="ratings" role="tabpanel" aria-labelledby="ratings-tab">
+                    <div id="ratings-feedback-list">
+                        <!-- Ratings and feedback will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="row mt-4>
+                <div class="col-12>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Quick Actions</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <button class="btn btn-primary w-100" onclick="window.location.href='tutor-profile-edit.html'">
+                                        <i class="fas fa-user-edit me-2"></i>Edit Profile
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-outline w-100" onclick="window.location.href='availability.html'">
+                                        <i class="fas fa-calendar-alt me-2"></i>Manage Availability
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-outline w-100" onclick="window.location.href='tutor-requests.html'">
+                                        <i class="fas fa-list me-2"></i>All Requests
+                                    </button>
+                                </div>
+                                <div class="col-md-3>
+                                    <button class="btn btn-outline w-100" onclick="window.location.href='messages.html'">
+                                        <i class="fas fa-comments me-2"></i>Messages
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer mt-5>
+        <div class="container">
+            <div class="row g-4>
+                <div class="col-md-3 col-sm-6>
+                    <h3>StudyLink</h3>
+                    <p>A peer tutoring platform designed for CSU students to connect, learn, and succeed together.</p>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="find-tutor.html">Find a Tutor</a></li>
+                        <li><a href="tutor-profile.html">Become a Tutor</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="text-me-2><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-me-2><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-me-2><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4 pt-3 border-top>
+                <p>&copy; 2026 StudyLink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/mock-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load tutor dashboard data
+            loadTutorDashboardStats();
+            loadUpcomingSessions();
+            loadTutorRequests();
+            loadCompletedSessions();
+            loadRatingsFeedback();
+        });
+
+        function loadTutorDashboardStats() {
+            // Update tutor dashboard stats
+            document.getElementById('upcoming-sessions').textContent = 5;
+            document.getElementById('pending-requests').textContent = 3;
+            document.getElementById('completed-sessions').textContent = 28;
+            document.getElementById('average-rating').textContent = 4.8;
+
+            // Set user name from session storage or mock data
+            const userName = sessionStorage.getItem('userName') || 'Juan Dela Cruz';
+            document.getElementById('user-name').textContent = userName;
+        }
+
+        function loadUpcomingSessions() {
+            const upcomingSessionsList = document.getElementById('upcoming-sessions-list');
+            if (!upcomingSessionsList) return;
+
+            // Mock upcoming sessions
+            const mockSessions = [
+                {
+                    id: 1,
+                    studentName: "Alex Rivera",
+                    studentAvatar: "https://via.placeholder.com/40x40?text=AR",
+                    subject: "Java Programming",
+                    topic: "Object-Oriented Programming",
+                    date: "2026-09-20",
+                    time: "15:00"
+                },
+                {
+                    id: 2,
+                    studentName: "Maria Garcia",
+                    studentAvatar: "https://via.placeholder.com/40x40?text=MG",
+                    subject: "Data Structures",
+                    topic: "Binary Trees",
+                    date: "2026-09-22",
+                    time: "10:00"
+                }
+            ];
+
+            upcomingSessionsList.innerHTML = '';
+
+            if (mockSessions.length === 0) {
+                upcomingSessionsList.innerHTML = '<p class="text-center text-muted py-3">No upcoming sessions scheduled.</p>';
+                return;
+            }
+
+            mockSessions.forEach(session => {
+                const sessionElement = document.createElement('div');
+                sessionElement.className = 'd-flex align-items-start mb-3';
+                sessionElement.innerHTML = `
+                    <div class="flex-shrink-0">
+                        <img src="${session.studentAvatar}" alt="${session.studentName}" class="rounded-circle" width="40" height="40">
+                    </div>
+                    <div class="flex-grow-1 ms-2">
+                        <h6 class="mb-1">${session.studentName}</h6>
+                        <p class="mb-1"><small>${session.subject}</small></p>
+                        <p class="mb-1"><small>${session.topic}</small></p>
+                        <p class="mb-1"><small>${formatDate(session.date)} at ${formatTime(session.time)}</small></p>
+                    </div>
+                `;
+                upcomingSessionsList.appendChild(sessionElement);
+            });
+        }
+
+        function loadTutorRequests() {
+            const tutorRequestsList = document.getElementById('tutor-requests-list');
+            if (!tutorRequestsList) return;
+
+            // Mock tutor requests
+            const mockRequests = [
+                {
+                    id: 1,
+                    studentName: "Carlos Mendoza",
+                    studentAvatar: "https://via.placeholder.com/40x40?text=CM",
+                    subject: "Java Programming",
+                    topic: "Exception Handling",
+                    date: "2026-09-18",
+                    time: "14:00",
+                    message: "Hi Juan, I'm struggling with understanding exception handling in Java. Could you help me?"
+                },
+                {
+                    id: 2,
+                    studentName: "Sophia Chen",
+                    studentAvatar: "https://via.placeholder.com/40x40?text=SC",
+                    subject: "Data Structures",
+                    topic: "Linked Lists",
+                    date: "2026-09-19",
+                    time: "16:00",
+                    message: "I need help understanding how to implement and traverse linked lists."
+                },
+                {
+                    id: 3,
+                    studentName: "Roberto Lim",
+                    studentAvatar: "https://via.placeholder.com/40x40?text=RL",
+                    subject: "Object-Oriented Programming",
+                    topic: "Polymorphism",
+                    date: "2026-09-21",
+                    time: "11:00",
+                    message: "Could you explain polymorphism with some practical examples?"
+                }
+            ];
+
+            tutorRequestsList.innerHTML = '';
+
+            if (mockRequests.length === 0) {
+                tutorRequestsList.innerHTML = '<p class="text-center text-muted py-3">No pending requests.</p>';
+                return;
+            }
+
+            mockRequests.forEach(request => {
+                const requestElement = document.createElement('div');
+                requestElement.className = 'card mb-3';
+                requestElement.innerHTML = `
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <h6 class="mb-1">${request.studentName}</h6>
+                                <p class="mb-1"><small>${request.subject}</small></p>
+                                <p class="mb-1"><small>${request.topic}</small></p>
+                            </div>
+                            <div>
+                                <button class="btn btn-sm btn-outline me-2" onclick="acceptRequest(${request.id})">Accept</button>
+                                <button class="btn btn-sm btn-outline" onclick="declineRequest(${request.id})">Decline</button>
+                            </div>
+                        </div>
+                        <p class="mb-2">${request.message}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">${formatDate(request.date)} at ${formatTime(request.time)}</small>
+                        </div>
+                    </div>
+                `;
+                tutorRequestsList.appendChild(requestElement);
+            });
+        }
+
+        function loadCompletedSessions() {
+            const completedSessionsList = document.getElementById('completed-sessions-list');
+            if (!completedSessionsList) return;
+
+            // Mock completed sessions
+            const mockCompleted = [
+                {
+                    id: 1,
+                    studentName: "Alex Rivera",
+                    studentAvatar: "https://via.placeholder.com/40x40?text=AR",
+                    subject: "Java Programming",
+                    date: "2026-09-10",
+                    rating: 5,
+                    feedback: "Great session! Juan helped me understand OOP concepts much better."
+                },
+                {
+                    id: 2,
+                    studentName: "Maria Garcia",
+                    studentAvatar: "https://via.placeholder.com/40x40?text=MG",
+                    subject: "Data Structures",
+                    date: "2026-09-12",
+                    rating: 4,
+                    feedback: "Very helpful session on data structures."
+                }
+            ];
+
+            completedSessionsList.innerHTML = '';
+
+            if (mockCompleted.length === 0) {
+                completedSessionsList.innerHTML = '<p class="text-center text-muted py-3">No completed sessions yet.</p>';
+                return;
+            }
+
+            mockCompleted.forEach(session => {
+                const sessionElement = document.createElement('div');
+                sessionElement.className = 'card mb-3';
+                sessionElement.innerHTML = `
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="mb-1">${session.studentName}</h6>
+                                <p class="mb-1"><small>${session.subject}</small></p>
+                            </div>
+                            <div>
+                                <div class="rating">
+                                    <div class="rating-stars">
+                                        ${Array(5).fill(0).map((_, i) =>
+                                            `<svg class="star ${i < session.rating ? '' : 'star-outline'}" width="12" height="12" viewBox="0 0 24 24"><path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`
+                                        ).join('')}
+                                    </div>
+                                    <span class="ms-1">${session.rating}/5</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mb-2">${session.feedback}</p>
+                        <small class="text-muted">${formatDate(session.date)}</small>
+                    </div>
+                `;
+                completedSessionsList.appendChild(sessionElement);
+            });
+        }
+
+        function loadRatingsFeedback() {
+            const ratingsFeedbackList = document.getElementById('ratings-feedback-list');
+            if (!ratingsFeedbackList) return;
+
+            // Mock ratings and feedback
+            const mockFeedback = [
+                {
+                    id: 1,
+                    studentName: "Alex Rivera",
+                    studentAvatar: "https://via.placeholder.com/40x40?text=AR",
+                    rating: 5,
+                    comment: "Juan helped me finally understand OOP concepts. His explanations were clear and patient.",
+                    date: "2026-09-10"
+                },
+                {
+                    id: 2,
+                    studentName: "Maria Garcia",
+                    studentAvatar: "https://via.placeholder.com/40x40?text=MG",
+                    rating: 4,
+                    comment: "Great tutor! Very knowledgeable about Java programming.",
+                    date: "2026-09-08"
+                },
+                {
+                    id: 3,
+                    studentName: "Carlos Mendoza",
+                    studentAvatar: "https://via.placeholder.com/40x40?text=CM",
+                    rating: 5,
+                    comment: "Excellent tutoring session. Juan is very patient and explains concepts well.",
+                    date: "2026-09-05"
+                }
+            ];
+
+            ratingsFeedbackList.innerHTML = '';
+
+            if (mockFeedback.length === 0) {
+                ratingsFeedbackList.innerHTML = '<p class="text-center text-muted py-3">No ratings or feedback yet.</p>';
+                return;
+            }
+
+            mockFeedback.forEach(feedback => {
+                const feedbackElement = document.createElement('div');
+                feedbackElement.className = 'card mb-3';
+                feedbackElement.innerHTML = `
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h6 class="mb-1">${feedback.studentName}</h6>
+                                <div class="rating">
+                                    <div class="rating-stars">
+                                        ${Array(5).fill(0).map((_, i) =>
+                                            `<svg class="star ${i < feedback.rating ? '' : 'star-outline'}" width="12" height="12" viewBox="0 0 24 24"><path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`
+                                        ).join('')}
+                                    </div>
+                                    <span class="ms-1">${feedback.rating}/5</span>
+                                </div>
+                            </div>
+                            <small class="text-muted">${feedback.date}</small>
+                        </div>
+                        <p class="mb-2">${feedback.comment}</p>
+                    </div>
+                `;
+                ratingsFeedbackList.appendChild(feedbackElement);
+            });
+        }
+
+        function acceptRequest(requestId) {
+            showAlert('Request accepted! The student has been notified.', 'success');
+            // In a real app, this would send an API request to accept the tutor request
+        }
+
+        function declineRequest(requestId) {
+            showAlert('Request declined. The student has been notified.', 'info');
+            // In a real app, this would send an API request to decline the tutor request
+        }
+
+        // Helper functions
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        function formatTime(timeString) {
+            return timeString; // Assuming HH:MM format
+        }
+
+        // Helper function to show alerts
+        function showAlert(message, type) {
+            // Remove any existing alerts
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) existingAlert.remove();
+
+            // Create new alert
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <span>${message}</span>
+                <button class="alert-close">&times;</button>
+            `;
+
+            // Add to page header or body
+            const container = document.querySelector('.container');
+            if (container) {
+                // Insert after navbar
+                const navbar = document.querySelector('.navbar');
+                if (navbar) {
+                    navbar.insertAdjacentElement('afterend', alert);
+                } else {
+                    container.prepend(alert);
+                }
+            } else {
+                document.body.prepend(alert);
+            }
+
+            // Add close functionality
+            alert.querySelector('.alert-close').addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentElement) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

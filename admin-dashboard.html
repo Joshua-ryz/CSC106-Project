@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - StudyLink</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                StudyLink
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="find-tutor.html" class="nav-link">Find a Tutor</a></li>
+                <li><a href="tutor-profile.html" class="nav-link">Become a Tutor</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="register.html" class="nav-link">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header py-4 bg-light">
+        <div class="container">
+            <h1><i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="dashboard-section py-4">
+        <div class="container">
+            <!-- Welcome Message -->
+            <div class="row mb-4>
+                <div class="col-12>
+                    <div class="alert alert-info>
+                        <i class="fas fa-user-shield me-2></i>
+                        Welcome, Administrator! Here's an overview of the StudyLink platform.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row mb-4>
+                <div class="col-md-3>
+                    <div class="card text-center>
+                        <div class="card-body>
+                            <i class="fas fa-users text-primary fa-2x mb-3></i>
+                            <h5>Total Users</h5>
+                            <h2 id="total-users">1,245</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3>
+                    <div class="card text-center>
+                        <div class="card-body>
+                            <i class="fas fa-chalkboard-teacher text-primary fa-2x mb-3></i>
+                            <h5>Total Tutors</h5>
+                            <h2 id="total-tutors">342</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3>
+                    <div class="card text-center>
+                        <div class="card-body>
+                            <i class="fas fa-user-graduate text-primary fa-2x mb-3></i>
+                            <h5>Total Tutees</h5>
+                            <h2 id="total-tutees">903</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3>
+                    <div class="card text-center>
+                        <div class="card-body>
+                            <i class="fas fa-exclamation-triangle text-primary fa-2x mb-3></i>
+                            <h5>Pending Reports</h5>
+                            <h2 id="pending-reports">12</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="row mb-4>
+                <div class="col-12>
+                    <ul class="nav nav-tabs" id="adminTabs" role="tablist>
+                        <li class="nav-item" role="presentation>
+                            <button class="nav-link active tab-button" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab" aria-controls="overview" aria-selected="true>Overview</button>
+                        </li>
+                        <li class="nav-item" role="presentation>
+                            <button class="nav-link tab-button" id="users-tab" data-bs-toggle="tab" data-bs-target="#users" type="button" role="tab" aria-controls="users" aria-selected="false>Users</button>
+                        </li>
+                        <li class="nav-item" role="presentation>
+                            <button class="nav-link tab-button" id="tutors-tab" data-bs-toggle="tab" data-bs-target="#tutors" type="button" role="tab" aria-controls="tutors" aria-selected="false>Tutors</button>
+                        </li>
+                        <li class="nav-item" role="presentation>
+                            <button class="nav-link tab-button" id="reports-tab" data-bs-toggle="tab" data-bs-target="#reports" type="button" role="tab" aria-controls="reports" aria-selected="false>Reports</button>
+                        </li>
+                        <li class="nav-item" role="presentation>
+                            <button class="nav-link tab-button" id="requests-tab" data-bs-toggle="tab" data-bs-target="#requests" type="button" role="tab" aria-controls="requests" aria-selected="false>Active Requests</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="adminTabContent>
+                <!-- Overview Tab -->
+                <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab>
+                    <div class="row g-4>
+                        <div class="col-md-6>
+                            <div class="card>
+                                <div class="card-header>
+                                    <h5>Recent Activities</h5>
+                                </div>
+                                <div class="card-body" id="recent-activities>
+                                    <!-- Recent activities will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6>
+                            <div class="card>
+                                <div class="card-header>
+                                    <h5>Platform Statistics</h5>
+                                </div>
+                                <div class="card-body" id="platform-stats>
+                                    <!-- Platform statistics will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Tab -->
+                <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab>
+                    <div id="users-list>
+                        <!-- Users list will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Tutors Tab -->
+                <div class="tab-pane fade" id="tutors" role="tabpanel" aria-labelledby="tutors-tab>
+                    <div id="tutors-list>
+                        <!-- Tutors list will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Reports Tab -->
+                <div class="tab-pane fade" id="reports" role="tabpanel" aria-labelledby="reports-tab>
+                    <div id="reports-list>
+                        <!-- Reports list will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Requests Tab -->
+                <div class="tab-pane fade" id="requests" role="tabpanel" aria-labelledby="requests-tab>
+                    <div id="active-requests-list>
+                        <!-- Active requests list will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer mt-5>
+        <div class="container>
+            <div class="row g-4>
+                <div class="col-md-3 col-sm-6>
+                    <h3>StudyLink</h3>
+                    <p>A peer tutoring platform designed for CSU students to connect, learn, and succeed together.</p>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="find-tutor.html">Find a Tutor</a></li>
+                        <li><a href="tutor-profile.html">Become a Tutor</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Support</h3>
+                    <ul class="footer-links>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Follow Us</h3>
+                    <div class="social-icons>
+                        <a href="#" class="text-me-2><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-me-2><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-me-2><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4 pt-3 border-top>
+                <p>&copy; 2026 StudyLink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/mock-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load admin dashboard data
+            loadAdminDashboardStats();
+            loadRecentActivities();
+            loadPlatformStats();
+            loadUsersList();
+            loadTutorsList();
+            loadReportsList();
+            loadActiveRequestsList();
+        });
+
+        function loadAdminDashboardStats() {
+            // Update admin dashboard stats
+            document.getElementById('total-users').textContent = '1,245';
+            document.getElementById('total-tutors').textContent = '342';
+            document.getElementById('total-tutees').textContent = '903';
+            document.getElementById('pending-reports').textContent = '12';
+        }
+
+        function loadRecentActivities() {
+            const recentActivities = document.getElementById('recent-activities');
+            if (!recentActivities) return;
+
+            // Mock recent activities
+            const mockActivities = [
+                {
+                    id: 1,
+                    type: 'user_registered',
+                    description: 'New student registered: Alex Rivera (2022-12345)',
+                    time: '2 minutes ago'
+                },
+                {
+                    id: 2,
+                    type: 'tutor_approved',
+                    description: 'Tutor application approved: Maria Santos',
+                    time: '15 minutes ago'
+                },
+                {
+                    id: 3,
+                    type: 'session_completed',
+                    description: 'Tutoring session completed: Java Programming - Alex Rivera & Juan Dela Cruz',
+                    time: '28 minutes ago'
+                },
+                {
+                    id: 4,
+                    type: 'report_submitted',
+                    description: 'New report submitted: Inappropriate content reported',
+                    time: '45 minutes ago'
+                },
+                {
+                    id: 5,
+                    type: 'user_login',
+                    description: 'User logged in: Roberto Lim (2022-54321)',
+                    time: '1 hour ago'
+                }
+            ];
+
+            recentActivities.innerHTML = '';
+
+            if (mockActivities.length === 0) {
+                recentActivities.innerHTML = '<p class="text-center text-muted py-3">No recent activities.</p>';
+                return;
+            }
+
+            mockActivities.forEach(activity => {
+                const activityElement = document.createElement('div');
+                activityElement.className = 'd-flex justify-content-between align-items-center mb-3 p-3 border rounded';
+                activityElement.innerHTML = `
+                    <div>
+                        <h6 class="mb-1">${activity.description}</h6>
+                        <small class="text-muted">${activity.time}</small>
+                    </div>
+                    <div>
+                        <span class="badge bg-info rounded-pill">${activity.type.replace('_', ' ').toUpperCase()}</span>
+                    </div>
+                `;
+                recentActivities.appendChild(activityElement);
+            });
+        }
+
+        function loadPlatformStats() {
+            const platformStats = document.getElementById('platform-stats');
+            if (!platformStats) return;
+
+            // Mock platform statistics
+            const mockStats = [
+                {
+                    label: 'Average Session Rating',
+                    value: '4.6/5',
+                    icon: 'fas fa-star'
+                },
+                {
+                    label: 'Sessions Completed Today',
+                    value: '23',
+                    icon: 'fas fa-calendar-check'
+                },
+                {
+                    label: 'Average Response Time',
+                    value: '42 minutes',
+                    icon: 'fas fa-clock'
+                },
+                {
+                    label: 'Most Popular Subject',
+                    value: 'Java Programming',
+                    icon: 'fas fa-code'
+                }
+            ];
+
+            platformStats.innerHTML = '';
+
+            mockStats.forEach(stat => {
+                const statElement = document.createElement('div');
+                statElement.className = 'd-flex align-items-center mb-3';
+                statElement.innerHTML = `
+                    <div class="flex-shrink-0">
+                        <i class="${stat.icon} fa-2x text-primary me-3"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h6 class="mb-1">${stat.label}</h6>
+                        <h2 class="mb-0">${stat.value}</h2>
+                    </div>
+                `;
+                platformStats.appendChild(statElement);
+            });
+        }
+
+        function loadUsersList() {
+            const usersList = document.getElementById('users-list');
+            if (!usersList) return;
+
+            // Mock users data
+            const mockUsers = [
+                {
+                    id: 1,
+                    name: "Alex Rivera",
+                    avatar: "https://via.placeholder.com/40x40?text=AR",
+                    studentId: "2022-12345",
+                    email: "alex.rivera@csu.edu.ph",
+                    userType: "student",
+                    status: "Active",
+                    dateRegistered: "2026-09-01"
+                },
+                {
+                    id: 2,
+                    name: "Maria Garcia",
+                    avatar: "https://via.placeholder.com/40x40?text=MG",
+                    studentId: "2022-67890",
+                    email: "maria.garcia@csu.edu.ph",
+                    userType: "student",
+                    status: "Active",
+                    dateRegistered: "2026-09-02"
+                },
+                {
+                    id: 3,
+                    name: "Juan Dela Cruz",
+                    avatar: "https://via.placeholder.com/40x40?text=JD",
+                    studentId: "2021-54321",
+                    email: "juan.delacruz@csu.edu.ph",
+                    userType: "tutor",
+                    status: "Active",
+                    dateRegistered: "2026-08-15"
+                },
+                {
+                    id: 4,
+                    name: "Roberto Lim",
+                    avatar: "https://via.placeholder.com/40x40?text=RL",
+                    studentId: "2022-54321",
+                    email: "roberto.lim@csu.edu.ph",
+                    userType: "tutor",
+                    status: "Active",
+                    dateRegistered: "2026-09-05"
+                },
+                {
+                    id: 5,
+                    name: "Sophia Chen",
+                    avatar: "https://via.placeholder.com/40x40?text=SC",
+                    studentId: "2022-98765",
+                    email: "sophia.chen@csu.edu.ph",
+                    userType: "student",
+                    status: "Suspended",
+                    dateRegistered: "2026-09-03"
+                }
+            ];
+
+            usersList.innerHTML = '';
+
+            if (mockUsers.length === 0) {
+                usersList.innerHTML = '<p class="text-center text-muted py-3">No users found.</p>';
+                return;
+            }
+
+            // Create table
+            const table = document.createElement('table');
+            table.className = 'table table-hover';
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Student ID</th>
+                        <th>Email</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Date Registered</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Users will be inserted here -->
+                </tbody>
+            `;
+
+            const tbody = table.querySelector('tbody');
+
+            mockUsers.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="${user.avatar}" alt="${user.name}" class="rounded-circle me-2" width="30" height="30">
+                            <span>${user.name}</span>
+                        </div>
+                    </td>
+                    <td>${user.studentId}</td>
+                    <td>${user.email}</td>
+                    <td>
+                        <span class="badge bg-${user.userType === 'tutor' ? 'success' : 'info'}">${user.userType}</span>
+                    </td>
+                    <td>
+                        <span class="badge bg-${user.status === 'Active' ? 'success' : user.status === 'Suspended' ? 'danger' : 'warning'}">${user.status}</span>
+                    </td>
+                    <td>${formatDate(user.dateRegistered)}</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-outline" onclick="viewUser(${user.id})">View</button>
+                            <button type="button" class="btn btn-sm btn-outline" onclick="editUser(${user.id})">Edit</button>
+                            ${user.status === 'Active' ?
+                                `<button type="button" class="btn btn-sm btn-outline" onclick="suspendUser(${user.id})">Suspend</button>` :
+                                `<button type="button" class="btn btn-sm btn-outline" onclick="activateUser(${user.id})">Activate</button>`
+                            }
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            usersList.appendChild(table);
+        }
+
+        function loadTutorsList() {
+            const tutorsList = document.getElementById('tutors-list');
+            if (!tutorsList) return;
+
+            // For demo, we'll reuse the mock tutors data
+            tutorsList.innerHTML = '';
+
+            if (mockTutors.length === 0) {
+                tutorsList.innerHTML = '<p class="text-center text-muted py-3">No tutors found.</p>';
+                return;
+            }
+
+            // Create table
+            const table = document.createElement('table');
+            table.className = 'table table-hover';
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Program</th>
+                        <th>Year</th>
+                        <th>Subjects</th>
+                        <th>Rating</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Tutors will be inserted here -->
+                </tbody>
+            `;
+
+            const tbody = table.querySelector('tbody');
+
+            mockTutors.forEach(tutor => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="${tutor.avatar}" alt="${tutor.name}" class="rounded-circle me-2" width="30" height="30">
+                            <span>${tutor.name}</span>
+                        </div>
+                    </td>
+                    <td>${tutor.program}</td>
+                    <td>${tutor.year}</td>
+                    <td>${tutor.subjects.slice(0, 2).join(', ')}${tutor.subjects.length > 2 ? '...' : ''}</td>
+                    <td>
+                        <div class="rating">
+                            <div class="rating-stars">
+                                ${Array(5).fill(0).map((_, i) =>
+                                    `<svg class="star ${i < tutor.rating ? '' : 'star-outline'}" width="12" height="12" viewBox="0 0 24 24"><path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`
+                                ).join('')}
+                            </div>
+                            <span class="ms-1">${tutor.rating}/5</span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="badge bg-success">Active</span>
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-outline" onclick="viewTutor(${tutor.id})">View</button>
+                            <button type="button" class="btn btn-sm btn-outline" onclick="editTutor(${tutor.id})">Edit</button>
+                            <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeTutor(${tutor.id})">Remove</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            tutorsList.appendChild(table);
+        }
+
+        function loadReportsList() {
+            const reportsList = document.getElementById('reports-list');
+            if (!reportsList) return;
+
+            // Mock reports data
+            const mockReports = [
+                {
+                    id: 1,
+                    reportedUser: "Alex Rivera",
+                    reportedUserAvatar: "https://via.placeholder.com/40x40?text=AR",
+                    reason: "Inappropriate Content",
+                    description": "User shared inappropriate messages during a tutoring session.",
+                    date: "2026-09-10",
+                    status: "Pending"
+                },
+                {
+                    id: 2,
+                    reportedUser: "Maria Santos",
+                    reportedUserAvatar: "https://via.placeholder.com/40x40?text=MS",
+                    reason": "Harassment",
+                    description": "User reported receiving unwanted messages from another user.",
+                    date: "2026-09-08",
+                    status": "Under Review"
+                },
+                {
+                    id: 3,
+                    reportedUser: "Juan Dela Cruz",
+                    reportedUserAvatar: "https://via.placeholder.com/40x40?text=JD",
+                    reason": "False Information",
+                    description": "User accused of providing incorrect information during tutoring sessions.",
+                    date: "2026-09-05",
+                    status": "Resolved"
+                }
+            ];
+
+            reportsList.innerHTML = '';
+
+            if (mockReports.length === 0) {
+                reportsList.innerHTML = '<p class="text-center text-muted py-3">No reports found.</p>';
+                return;
+            }
+
+            // Create table
+            const table = document.createElement('table');
+            table.className = 'table table-hover';
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Reported User</th>
+                        <th>Reason</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Reports will be inserted here -->
+                </tbody>
+            `;
+
+            const tbody = table.querySelector('tbody');
+
+            mockReports.forEach(report => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="${report.reportedUserAvatar}" alt="${report.reportedUser}" class="rounded-circle me-2" width="30" height="30">
+                            <span>${report.reportedUser}</span>
+                        </div>
+                    </td>
+                    <td>${report.reason}</td>
+                    <td>${report.description}</td>
+                    <td>${formatDate(report.date)}</td>
+                    <td>
+                        <span class="badge bg-${report.status === 'Pending' ? 'warning' : report.status === 'Under Review' ? 'info' : 'success'}">${report.status}</span>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-outline" onclick="reviewReport(${report.id})">Review</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            reportsList.appendChild(table);
+        }
+
+        function loadActiveRequestsList() {
+            const activeRequestsList = document.getElementById('active-requests-list');
+            if (!activeRequestsList) return;
+
+            // Mock active requests data (similar to tutor requests)
+            const mockRequests = [
+                {
+                    id: 1,
+                    studentName: "Alex Rivera",
+                    studentAvatar: "https://via.placeholder.com/40x40?text=AR",
+                    tutorName: "Juan Dela Cruz",
+                    tutorAvatar: "https://via.placeholder.com/40x40?text=JD",
+                    subject: "Java Programming",
+                    topic: "Object-Oriented Programming Concepts",
+                    date: "2026-09-20",
+                    time: "14:00",
+                    status: "Pending"
+                },
+                {
+                    id: 2,
+                    studentName: "Maria Garcia",
+                    studentAvatar: "https://via.placeholder.com/40x40?text=MG",
+                    tutorName: "Maria Santos",
+                    tutorAvatar: "https://via.placeholder.com/40x40?text=MS",
+                    subject: "Calculus",
+                    topic: "Integration Techniques",
+                    date: "2026-09-21",
+                    time: "10:00",
+                    status: "Pending"
+                }
+            ];
+
+            activeRequestsList.innerHTML = '';
+
+            if (mockRequests.length === 0) {
+                activeRequestsList.innerHTML = '<p class="text-center text-muted py-3">No active requests.</p>';
+                return;
+            }
+
+            // Create table
+            const table = document.createElement('table');
+            table.className = 'table table-hover';
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Tutor</th>
+                        <th>Subject</th>
+                        <th>Topic</th>
+                        <th>Date & Time</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Requests will be inserted here -->
+                </tbody>
+            `;
+
+            const tbody = table.querySelector('tbody');
+
+            mockRequests.forEach(request => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="${request.studentAvatar}" alt="${request.studentName}" class="rounded-circle me-2" width="30" height="30">
+                            <span>${request.studentName}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="${request.tutorAvatar}" alt="${request.tutorName}" class="rounded-circle me-2" width="30" height="30">
+                            <span>${request.tutorName}</span>
+                        </div>
+                    </td>
+                    <td>${request.subject}</td>
+                    <td>${request.topic}</td>
+                    <td>${formatDate(request.date)} at ${formatTime(request.time)}</td>
+                    <td>
+                        <span class="badge bg-${request.status === 'Pending' ? 'warning' : request.status === 'Accepted' ? 'success' : 'danger'}">${request.status}</span>
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-outline" onclick="viewRequest(${request.id})">View</button>
+                            ${request.status === 'Pending' ?
+                                `<button type="button" class="btn btn-sm btn-outline-success me-1" onclick="acceptRequest(${request.id})">Accept</button>` : ''
+                            }
+                            ${request.status === 'Pending' ?
+                                `<button type="button" class="btn btn-sm btn-outline-danger" onclick="declineRequest(${request.id})">Decline</button>` : ''
+                            }
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            activeRequestsList.appendChild(table);
+        }
+
+        // Admin action functions
+        function viewUser(id) {
+            showAlert(`Viewing user details for user ID: ${id}`, 'info');
+        }
+
+        function editUser(id) {
+            showAlert(`Editing user details for user ID: ${id}`, 'info');
+        }
+
+        function suspendUser(id) {
+            showAlert(`User ID: ${id} has been suspended`, 'warning');
+            // In a real app, this would send an API request to suspend the user
+        }
+
+        function activateUser(id) {
+            showAlert(`User ID: ${id} has been activated`, 'success');
+            // In a real app, this would send an API request to activate the user
+        }
+
+        function viewTutor(id) {
+            showAlert(`Viewing tutor details for tutor ID: ${id}`, 'info');
+        }
+
+        function editTutor(id) {
+            showAlert(`Editing tutor details for tutor ID: ${id}`, 'info');
+        }
+
+        function removeTutor(id) {
+            if (confirm('Are you sure you want to remove this tutor? This action cannot be undone.')) {
+                showAlert(`Tutor ID: ${id} has been removed`, 'error');
+                // In a real app, this would send an API request to remove the tutor
+            }
+        }
+
+        function reviewReport(id) {
+            showAlert(`Reviewing report ID: ${id}`, 'info');
+        }
+
+        function viewRequest(id) {
+            showAlert(`Viewing request details for request ID: ${id}`, 'info');
+        }
+
+        function acceptRequest(id) {
+            showAlert(`Request ID: ${id} has been accepted`, 'success');
+            // In a real app, this would send an API request to accept the tutor request
+        }
+
+        function declineRequest(id) {
+            showAlert(`Request ID: ${id} has been declined`, 'info');
+            // In a real app, this would send an API request to decline the tutor request
+        }
+
+        // Helper functions
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        function formatTime(timeString) {
+            return timeString; // Assuming HH:MM format
+        }
+
+        // Helper function to show alerts
+        function showAlert(message, type) {
+            // Remove any existing alerts
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) existingAlert.remove();
+
+            // Create new alert
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <span>${message}</span>
+                <button class="alert-close">&times;</button>
+            `;
+
+            // Add to page header or body
+            const container = document.querySelector('.container');
+            if (container) {
+                // Insert after navbar
+                const navbar = document.querySelector('.navbar');
+                if (navbar) {
+                    navbar.insertAdjacentElement('afterend', alert);
+                } else {
+                    container.prepend(alert);
+                }
+            } else {
+                document.body.prepend(alert);
+            }
+
+            // Add close functionality
+            alert.querySelector('.alert-close').addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentElement) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - StudyLink</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                StudyLink
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="find-tutor.html" class="nav-link">Find a Tutor</a></li>
+                <li><a href="tutor-profile.html" class="nav-link">Become a Tutor</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="register.html" class="nav-link active">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Registration Form -->
+    <section class="register-section py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-7">
+                    <div class="card">
+                        <div class="card-header text-center pb-4">
+                            <h3 class="mb-0">Create Your Account</h3>
+                            <p class="text-muted mb-0">Join the StudyLink community to find or become a peer tutor</p>
+                        </div>
+                        <div class="card-body">
+                            <!-- Alert Message -->
+                            <div id="register-alert"></div>
+
+                            <form id="register-form" data-mock-submit>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="fullName" class="form-label">Full Name</label>
+                                            <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="studentId" class="form-label">Student ID</label>
+                                            <input type="text" class="form-control" id="studentId" placeholder="Enter your CSU Student ID (e.g., 2022-12345)" pattern="\\d{4}-\\d{5}" title="Please enter a valid Student ID in format YYYY-XXXXX" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="email" class="form-label">CSU Email Address</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Enter your CSU email (e.g., name@csu.edu.ph)" required>
+                                </div>
+
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="password" class="form-label">Password</label>
+                                            <div class="d-flex align-items-center">
+                                                <input type="password" class="form-control me-2" id="password" placeholder="Create a password" minlength="6" required>
+                                                <button type="button" class="btn btn-outline-toggle toggle-password" aria-label="Toggle password visibility">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                            <div class="d-flex align-items-center">
+                                                <input type="password" class="form-control me-2" id="confirmPassword" placeholder="Confirm your password" minlength="6" required>
+                                                <button type="button" class="btn btn-outline-toggle toggle-password" aria-label="Toggle password visibility">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="userType" class="form-label">I am a...</label>
+                                    <select class="form-select" id="userType" required>
+                                        <option value="">Select your role</option>
+                                        <option value="student">Student seeking tutoring</option>
+                                        <option value="tutor">Student offering tutoring</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="termsCheck" required>
+                                        <label class="form-check-label" for="termsCheck">
+                                            I agree to the <a href="#" class="text-decoration-none">Terms of Service</a> and <a href="#" class="text-decoration-none">Privacy Policy</a>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary w-100 mb-4">Create Account</button>
+
+                                <div class="text-center mt-3">
+                                    <p class="mb-0">Already have an account? <a href="login.html" class="text-decoration-none">Login here</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3 col-sm-6">
+                    <h3>StudyLink</h3>
+                    <p>A peer tutoring platform designed for CSU students to connect, learn, and succeed together.</p>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="find-tutor.html">Find a Tutor</a></li>
+                        <li><a href="tutor-profile.html">Become a Tutor</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="text-me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-me-2"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4 pt-3 border-top">
+                <p>&copy; 2026 StudyLink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/mock-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const registerForm = document.getElementById('register-form');
+            const registerAlert = document.getElementById('register-alert');
+
+            // Password toggle functionality
+            const passwordToggles = document.querySelectorAll('.toggle-password');
+            passwordToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const passwordInput = this.parentElement.querySelector('input[type="password"]');
+                    const confirmPasswordInput = document.getElementById('confirmPassword');
+                    const icon = this.querySelector('i');
+
+                    // Determine which password field to toggle
+                    let targetInput;
+                    if (this.parentElement.querySelector('#password')) {
+                        targetInput = passwordInput;
+                    } else if (this.parentElement.querySelector('#confirmPassword')) {
+                        targetInput = confirmPasswordInput;
+                    }
+
+                    if (targetInput) {
+                        if (targetInput.type === 'password') {
+                            targetInput.type = 'text';
+                            icon.classList.remove('fa-eye');
+                            icon.classList.add('fa-eye-slash');
+                        } else {
+                            targetInput.type = 'password';
+                            icon.classList.remove('fa-eye-slash');
+                            icon.classList.add('fa-eye');
+                        }
+                    }
+                });
+            });
+
+            if (registerForm) {
+                registerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    // Clear previous alerts
+                    if (registerAlert) {
+                        registerAlert.innerHTML = '';
+                    }
+
+                    // Get form values
+                    const fullName = document.getElementById('fullName').value.trim();
+                    const studentId = document.getElementById('studentId').value.trim();
+                    const email = document.getElementById('email').value.trim();
+                    const password = document.getElementById('password').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+                    const userType = document.getElementById('userType').value;
+                    const termsChecked = document.getElementById('termsCheck').checked;
+
+                    // Validation
+                    if (!fullName) {
+                        showAlert('Please enter your full name', 'error');
+                        return;
+                    }
+
+                    if (!studentId) {
+                        showAlert('Please enter your Student ID', 'error');
+                        return;
+                    }
+
+                    // Validate Student ID format
+                    const studentIdPattern = /^\d{4}-\d{5}$/;
+                    if (!studentIdPattern.test(studentId)) {
+                        showAlert('Please enter a valid Student ID in format YYYY-XXXXX', 'error');
+                        return;
+                    }
+
+                    if (!email) {
+                        showAlert('Please enter your email address', 'error');
+                        return;
+                    }
+
+                    // Validate CSU email
+                    if (!email.endsWith('@csu.edu.ph')) {
+                        showAlert('Please use your CSU email address (@csu.edu.ph)', 'error');
+                        return;
+                    }
+
+                    if (!password) {
+                        showAlert('Please create a password', 'error');
+                        return;
+                    }
+
+                    if (password.length < 6) {
+                        showAlert('Password must be at least 6 characters long', 'error');
+                        return;
+                    }
+
+                    if (password !== confirmPassword) {
+                        showAlert('Passwords do not match', 'error');
+                        return;
+                    }
+
+                    if (!userType) {
+                        showAlert('Please select your role (student or tutor)', 'error');
+                        return;
+                    }
+
+                    if (!termsChecked) {
+                        showAlert('Please agree to the Terms of Service and Privacy Policy', 'error');
+                        return;
+                    }
+
+                    // Show loading state
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    const originalText = submitButton.textContent;
+                    submitButton.textContent = 'Creating account...';
+                    submitButton.disabled = true;
+
+                    // Simulate API call
+                    setTimeout(() => {
+                        // Mock registration success
+                        mockRegisterSuccess({
+                            fullName,
+                            studentId,
+                            email,
+                            userType
+                        });
+
+                        submitButton.textContent = originalText;
+                        submitButton.disabled = false;
+                    }, 1500);
+                });
+            }
+        });
+
+        function mockRegisterSuccess(userData) {
+            // In a real app, this would send data to a backend API
+            // For mock purposes, we'll just show success and redirect
+
+            // Store user data in session (in real app, you'd get a token back)
+            sessionStorage.setItem('isRegistered', 'true');
+            sessionStorage.setItem('userEmail', userData.email);
+            sessionStorage.setItem('userType', userData.userType);
+            sessionStorage.setItem('fullName', userData.fullName);
+            sessionStorage.setItem('studentId', userData.studentId);
+
+            showAlert('Account created successfully! Redirecting to login...', 'success');
+
+            // Redirect to login after successful registration
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1500);
+        }
+
+        function showAlert(message, type) {
+            // Remove any existing alerts
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) existingAlert.remove();
+
+            // Create new alert
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type} mt-3`;
+            alert.innerHTML = `
+                <span>${message}</span>
+                <button class="alert-close">&times;</button>
+            `;
+
+            // Add to form
+            const form = document.getElementById('register-form');
+            if (form) {
+                form.prepend(alert);
+            } else {
+                document.body.prepend(alert);
+            }
+
+            // Add close functionality
+            alert.querySelector('.alert-close').addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentElement) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

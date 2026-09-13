@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Tutoring Session - StudyLink</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                StudyLink
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="find-tutor.html" class="nav-link">Find a Tutor</a></li>
+                <li><a href="tutor-profile.html" class="nav-link">Become a Tutor</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="register.html" class="nav-link">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header py-4 bg-light">
+        <div class="container">
+            <h1><i class="fas fa-calendar-plus me-2"></i>Request Tutoring Session</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="request-session-section py-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Request a Session with <span id="tutor-name-display"></span></h4>
+                        </div>
+                        <div class="card-body">
+                            <!-- Alert Message -->
+                            <div id="request-alert"></div>
+
+                            <form id="request-form" data-mock-submit>
+                                <div class="mb-3">
+                                    <label for="subject" class="form-label">Subject</label>
+                                    <input type="text" class="form-control" id="subject" readonly>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="topic" class="form-label">Topic or Problem Area</label>
+                                    <textarea class="form-control" id="topic" rows="3" placeholder="What specific topic or problem do you need help with?" required></textarea>
+                                </div>
+
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="date" class="form-label">Preferred Date</label>
+                                            <input type="date" class="form-control" id="date" min="${new Date().toISOString().split('T')[0]}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="time" class="form-label">Preferred Time</label>
+                                            <input type="time" class="form-control" id="time" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">Message to Tutor</label>
+                                    <textarea class="form-control" id="message" rows="4" placeholder="Introduce yourself and mention what you'd like to cover in the session..." required></textarea>
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">Send Request</button>
+                                    <button type="button" class="btn btn-outline" onclick="window.location.href='find-tutor.html'">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3 col-sm-6>
+                    <h3>StudyLink</h3>
+                    <p>A peer tutoring platform designed for CSU students to connect, learn, and succeed together.</p>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="find-tutor.html">Find a Tutor</a></li>
+                        <li><a href="tutor-profile.html">Become a Tutor</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="text-me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-me-2"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4 pt-3 border-top">
+                <p>&copy; 2026 StudyLink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/mock-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load tutor information from session storage
+            loadTutorInfo();
+
+            // Initialize form
+            initializeForm();
+        });
+
+        function loadTutorInfo() {
+            const tutorId = sessionStorage.getItem('selectedTutorId');
+            const tutorName = sessionStorage.getItem('selectedTutorName');
+
+            if (!tutorId || !tutorName) {
+                // Redirect to find tutor if no tutor selected
+                window.location.href = 'find-tutor.html';
+                return;
+            }
+
+            // Find tutor details
+            const tutor = mockTutors.find(t => t.id == tutorId);
+            if (!tutor) {
+                showAlert('Tutor not found', 'error');
+                setTimeout(() => {
+                    window.location.href = 'find-tutor.html';
+                }, 1500);
+                return;
+            }
+
+            // Display tutor name
+            document.getElementById('tutor-name-display').textContent = tutor.name;
+
+            // Pre-fill subject (first subject or most relevant)
+            document.getElementById('subject').value = tutor.subjects[0] || 'General Studies';
+        }
+
+        function initializeForm() {
+            const requestForm = document.getElementById('request-form');
+            const requestAlert = document.getElementById('request-alert');
+
+            if (requestForm) {
+                requestForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    // Clear previous alerts
+                    if (requestAlert) {
+                        requestAlert.innerHTML = '';
+                    }
+
+                    // Get form values
+                    const subject = document.getElementById('subject').value;
+                    const topic = document.getElementById('topic').value.trim();
+                    const date = document.getElementById('date').value;
+                    const time = document.getElementById('time').value;
+                    const message = document.getElementById('message').value.trim();
+
+                    // Validation
+                    if (!topic) {
+                        showAlert('Please enter a topic or problem area', 'error');
+                        return;
+                    }
+
+                    if (!date) {
+                        showAlert('Please select a preferred date', 'error');
+                        return;
+                    }
+
+                    if (!time) {
+                        showAlert('Please select a preferred time', 'error');
+                        return;
+                    }
+
+                    if (!message) {
+                        showAlert('Please enter a message to the tutor', 'error');
+                        return;
+                    }
+
+                    // Show loading state
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    const originalText = submitButton.textContent;
+                    submitButton.textContent = 'Sending request...';
+                    submitButton.disabled = true;
+
+                    // Simulate API call
+                    setTimeout(() => {
+                        // Mock request submission success
+                        mockRequestSubmission({
+                            subject,
+                            topic,
+                            date,
+                            time,
+                            message
+                        });
+
+                        submitButton.textContent = originalText;
+                        submitButton.disabled = false;
+                    }, 1500);
+                });
+            }
+        }
+
+        function mockRequestSubmission(requestData) {
+            // In a real app, this would send data to a backend API
+            // For mock purposes, we'll just show success and redirect
+
+            showAlert('Tutoring request sent successfully! The tutor will respond soon.', 'success');
+
+            // Clear form
+            document.getElementById('request-form').reset();
+
+            // Redirect to student dashboard after successful submission
+            setTimeout(() => {
+                window.location.href = 'student-dashboard.html';
+            }, 1500);
+        }
+
+        // Helper function to show alerts
+        function showAlert(message, type) {
+            // Remove any existing alerts
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) existingAlert.remove();
+
+            // Create new alert
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type} mt-3`;
+            alert.innerHTML = `
+                <span>${message}</span>
+                <button class="alert-close">&times;</button>
+            `;
+
+            // Add to form
+            const form = document.getElementById('request-form');
+            if (form) {
+                form.prepend(alert);
+            } else {
+                document.body.prepend(alert);
+            }
+
+            // Add close functionality
+            alert.querySelector('.alert-close').addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentElement) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

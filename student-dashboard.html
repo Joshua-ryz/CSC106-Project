@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - StudyLink</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                StudyLink
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="find-tutor.html" class="nav-link">Find a Tutor</a></li>
+                <li><a href="tutor-profile.html" class="nav-link">Become a Tutor</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="register.html" class="nav-link">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header py-4 bg-light">
+        <div class="container">
+            <h1><i class="fas fa-tachometer-alt me-2"></i>Student Dashboard</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="dashboard-section py-4">
+        <div class="container">
+            <!-- Welcome Message -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="alert alert-info">
+                        <i class="fas fa-user me-2"></i>
+                        Welcome back, <span id="user-name">Alex Rivera</span>! Here's your study overview.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-users text-primary fa-2x mb-3"></i>
+                            <h5>Upcoming Sessions</h5>
+                            <h2 id="upcoming-sessions">3</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-clock text-primary fa-2x mb-3"></i>
+                            <h5>Pending Requests</h5>
+                            <h2 id="pending-requests">2</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-check-double text-primary fa-2x mb-3"></i>
+                            <h5>Completed Sessions</h5>
+                            <h2 id="completed-sessions">15</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-star text-primary fa-2x mb-3"></i>
+                            <h5>Average Rating</h5>
+                            <h2 id="average-rating">4.8</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <ul class="nav nav-tabs" id="dashboardTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active tab-button" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab" aria-controls="upcoming" aria-selected="true">Upcoming Sessions</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link tab-button" id="requests-tab" data-bs-toggle="tab" data-bs-target="#requests" type="button" role="tab" aria-controls="requests" aria-selected="false">Pending Requests</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link tab-button" id="recent-tab" data-bs-toggle="tab" data-bs-target="#recent" type="button" role="tab" aria-controls="recent" aria-selected="false">Recent Tutors</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link tab-button" id="recommended-tab" data-bs-toggle="tab" data-bs-target="#recommended" type="button" role="tab" aria-controls="recommended" aria-selected="false">Recommended Tutors</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link tab-button" id="notifications-tab" data-bs-toggle="tab" data-bs-target="#notifications" type="button" role="tab" aria-controls="notifications" aria-selected="false">Notifications</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="dashboardTabContent">
+                <!-- Upcoming Sessions Tab -->
+                <div class="tab-pane fade show active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
+                    <div id="upcoming-sessions-list">
+                        <!-- Upcoming sessions will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Pending Requests Tab -->
+                <div class="tab-pane fade" id="requests" role="tabpanel" aria-labelledby="requests-tab">
+                    <div id="pending-requests-list">
+                        <!-- Pending requests will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Recent Tutors Tab -->
+                <div class="tab-pane fade" id="recent" role="tabpanel" aria-labelledby="recent-tab">
+                    <div id="recent-tutors">
+                        <!-- Recent tutors will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Recommended Tutors Tab -->
+                <div class="tab-pane fade" id="recommended" role="tabpanel" aria-labelledby="recommended-tab">
+                    <div id="recommended-tutors">
+                        <!-- Recommended tutors will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Notifications Tab -->
+                <div class="tab-pane fade" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+                    <div id="notifications-list">
+                        <!-- Notifications will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Quick Actions</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <button class="btn btn-primary w-100" onclick="window.location.href='find-tutor.html'">
+                                        <i class="fas fa-search me-2"></i>Find a Tutor
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-outline w-100" onclick="window.location.href='request-session.html'">
+                                        <i class="fas fa-calendar-plus me-2"></i>Request Session
+                                    </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-outline w-100" onclick="window.location.href='messages.html'">
+                                        <i class="fas fa-comments me-2"></i>Messages
+                                    </button

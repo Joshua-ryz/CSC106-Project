@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Availability - StudyLink</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                StudyLink
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="find-tutor.html" class="nav-link">Find a Tutor</a></li>
+                <li><a href="tutor-profile.html" class="nav-link">Become a Tutor</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="register.html" class="nav-link">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header py-4 bg-light">
+        <div class="container">
+            <h1><i class="fas fa-calendar-alt me-2"></i>Manage Availability</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="availability-section py-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Set Your Tutoring Availability</h4>
+                        </div>
+                        <div class="card-body">
+                            <!-- Alert Message -->
+                            <div id="availability-alert"></div>
+
+                            <form id="availability-form" data-mock-submit>
+                                <div class="mb-4>
+                                    <h5>Select Your Available Days</h5>
+                                    <div class="row g-3" id="days-container">
+                                        <!-- Days will be generated here -->
+                                    </div>
+                                </div>
+
+                                <div class="mb-4>
+                                    <h5>Time Slots</h5>
+                                    <div id="time-slots-container">
+                                        <!-- Time slots will be generated here -->
+                                    </div>
+                                </div>
+
+                                <div class="mb-4>
+                                    <h5>Your Availability</h5>
+                                    <div id="selected-availability">
+                                        <!-- Selected availability will be displayed here -->
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2>
+                                    <button type="submit" class="btn btn-primary">Save Availability</button>
+                                    <button type="button" class="btn btn-outline" onclick="window.location.href='tutor-dashboard.html'">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer mt-5>
+        <div class="container">
+            <div class="row g-4>
+                <div class="col-md-3 col-sm-6>
+                    <h3>StudyLink</h3>
+                    <p>A peer tutoring platform designed for CSU students to connect, learn, and succeed together.</p>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="find-tutor.html">Find a Tutor</a></li>
+                        <li><a href="tutor-profile.html">Become a Tutor</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="text-me-2><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-me-2><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-me-2><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div

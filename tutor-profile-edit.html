@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Tutor Profile - StudyLink</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                StudyLink
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="find-tutor.html" class="nav-link">Find a Tutor</a></li>
+                <li><a href="tutor-profile.html" class="nav-link">Become a Tutor</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="register.html" class="nav-link">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header py-4 bg-light">
+        <div class="container">
+            <h1><i class="fas fa-user-edit me-2"></i>Edit Tutor Profile</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="tutor-profile-edit-section py-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Manage Your Tutor Profile</h4>
+                        </div>
+                        <div class="card-body">
+                            <!-- Alert Message -->
+                            <div id="profile-alert"></div>
+
+                            <form id="profile-form" data-mock-submit>
+                                <div class="mb-3">
+                                    <label for="profilePhoto" class="form-label">Profile Photo</label>
+                                    <div class="text-center">
+                                        <img src="https://via.placeholder.com/150x150?text=JD" id="profile-preview" class="rounded-circle mb-3" width="150" height="150">
+                                        <input type="file" class="form-control" id="profilePhoto" accept="image/*">
+                                        <small class="text-muted">Upload a profile picture (optional)</small>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="fullName" class="form-label">Full Name</label>
+                                            <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6>
+                                        <div class="mb-3">
+                                            <label for="program" class="form-label">Program/Course</label>
+                                            <input type="text" class="form-control" id="program" placeholder="Enter your program (e.g., BS Computer Science)" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3>
+                                    <div class="col-md-6>
+                                        <div class="mb-3">
+                                            <label for="yearLevel" class="form-label">Year Level</label>
+                                            <select class="form-select" id="yearLevel" required>
+                                                <option value="">Select your year level</option>
+                                                <option value="1st Year">1st Year</option>
+                                                <option value="2nd Year">2nd Year</option>
+                                                <option value="3rd Year">3rd Year</option>
+                                                <option value="4th Year">4th Year</option>
+                                                <option value="5th Year">5th Year</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6>
+                                        <div class="mb-3">
+                                            <label for="bio" class="form-label">Short Biography</label>
+                                            <textarea class="form-control" id="bio" rows="3" placeholder="Tell students about yourself and your tutoring style..." required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3>
+                                    <label for="subjects" class="form-label">Subjects You Can Teach</label>
+                                    <div class="input-group mb-2>
+                                        <input type="text" class="form-control" id="subject-input" placeholder="Enter a subject (e.g., Java Programming)">
+                                        <button class="btn btn-outline-secondary" type="button" id="add-subject-btn"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                    <div id="subjects-list" class="mb-3>
+                                        <!-- Subjects will be listed here -->
+                                    </div>
+                                </div>
+
+                                <div class="mb-3>
+                                    <label for="expertise" class="form-label">Areas of Expertise</label>
+                                    <div class="input-group mb-2>
+                                        <input type="text" class="form-control" id="expertise-input" placeholder="Enter an area of expertise (e.g., Object-Oriented Programming)">
+                                        <button class="btn btn-outline-secondary" type="button" id="add-expertise-btn"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                    <div id="expertise-list" class="mb-3>
+                                        <!-- Expertise will be listed here -->
+                                    </div>
+                                </div>
+
+                                <div class="mb-3>
+                                    <label for="availability" class="form-label">Availability</label>
+                                    <div class="input-group mb-2>
+                                        <input type="text" class="form-control" id="availability-input" placeholder="Enter availability (e.g., Monday, Wednesday, Friday)">
+                                        <button class="btn btn-outline-secondary" type="button" id="add-availability-btn"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                    <div id="availability-list" class="mb-3>
+                                        <!-- Availability will be listed here -->
+                                    </div>
+                                </div>
+
+                                <div class="mb-3>
+                                    <label for="tutoringMethod" class="form-label">Preferred Tutoring Method</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="tutoringMethod" id="faceToFace" value="face-to-face" checked>
+                                        <label class="form-check-label" for="faceToFace">Face-to-face</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="tutoringMethod" id="online" value="online">
+                                        <label class="form-check-label" for="online">Online</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="tutoringMethod" id="both" value="both">
+                                        <label class="form-check-label" for="both">Both</label>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2>
+                                    <button type="submit" class="btn btn-primary">Save Profile</button>
+                                    <button type="button" class="btn btn-outline" onclick="window.location.href='tutor-dashboard.html'">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer mt-5>
+        <div class="container">
+            <div class="row g-4>
+                <div class="col-md-3 col-sm-6>
+                    <h3>StudyLink</h3>
+                    <p>A peer tutoring platform designed for CSU students to connect, learn, and succeed together.</p>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="find-tutor.html">Find a Tutor</a></li>
+                        <li><a href="tutor-profile.html">Become a Tutor</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#" class="text-me-2><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-me-2><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-me-2><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4 pt-3 border-top>
+                <p>&copy; 2026 StudyLink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/mock-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load tutor data for editing
+            loadTutorData();
+
+            // Initialize form interactions
+            initializeForm();
+        });
+
+        function loadTutorData() {
+            // For demo, we'll load data for the first tutor
+            const tutor = mockTutors[0]; // Juan Dela Cruz
+
+            if (!tutor) return;
+
+            // Fill in basic info
+            document.getElementById('fullName').value = tutor.name;
+            document.getElementById('program').value = tutor.program;
+
+            // Set year level
+            const yearLevelSelect = document.getElementById('yearLevel');
+            for (let i = 0; i < yearLevelSelect.options.length; i++) {
+                if (yearLevelSelect.options[i].value === tutor.year) {
+                    yearLevelSelect.selectedIndex = i;
+                    break;
+                }
+            }
+
+            // Set bio
+            document.getElementById('bio').value = tutor.bio;
+
+            // Set subjects
+            const subjectsList = document.getElementById('subjects-list');
+            tutor.subjects.forEach(subject => {
+                addSubjectToList(subject);
+            });
+
+            // Set expertise
+            const expertiseList = document.getElementById('expertise-list');
+            tutor.expertise.forEach(expertise => {
+                addExpertiseToList(expertise);
+            });
+
+            // Set availability
+            const availabilityList = document.getElementById('availability-list');
+            tutor.availability.forEach(day => {
+                addAvailabilityToList(day);
+            });
+
+            // Set tutoring method (default to both for demo)
+            document.getElementById('both').checked = true;
+        }
+
+        function initializeForm() {
+            const profileForm = document.getElementById('profile-form');
+            const profileAlert = document.getElementById('profile-alert');
+
+            // Profile photo upload
+            const profilePhotoInput = document.getElementById('profilePhoto');
+            const profilePreview = document.getElementById('profile-preview');
+
+            if (profilePhotoInput && profilePreview) {
+                profilePhotoInput.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            profilePreview.src = event.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+
+            // Add subject button
+            const addSubjectBtn = document.getElementById('add-subject-btn');
+            const subjectInput = document.getElementById('subject-input');
+            const subjectsList = document.getElementById('subjects-list');
+
+            if (addSubjectBtn && subjectInput && subjectsList) {
+                addSubjectBtn.addEventListener('click', function() {
+                    const subjectText = subjectInput.value.trim();
+                    if (subjectText) {
+                        addSubjectToList(subjectText);
+                        subjectInput.value = '';
+                    }
+                });
+
+                subjectInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        addSubjectBtn.click();
+                    }
+                });
+            }
+
+            // Add expertise button
+            const addExpertiseBtn = document.getElementById('add-expertise-btn');
+            const expertiseInput = document.getElementById('expertise-input');
+            const expertiseList = document.getElementById('expertise-list');
+
+            if (addExpertiseBtn && expertiseInput && expertiseList) {
+                addExpertiseBtn.addEventListener('click', function() {
+                    const expertiseText = expertiseInput.value.trim();
+                    if (expertiseText) {
+                        addExpertiseToList(expertiseText);
+                        expertiseInput.value = '';
+                    }
+                });
+
+                expertiseInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        addExpertiseBtn.click();
+                    }
+                });
+            }
+
+            // Add availability button
+            const addAvailabilityBtn = document.getElementById('add-availability-btn');
+            const availabilityInput = document.getElementById('availability-input');
+            const availabilityList = document.getElementById('availability-list');
+
+            if (addAvailabilityBtn && availabilityInput && availabilityList) {
+                addAvailabilityBtn.addEventListener('click', function() {
+                    const availabilityText = availabilityInput.value.trim();
+                    if (availabilityText) {
+                        addAvailabilityToList(availabilityText);
+                        availabilityInput.value = '';
+                    }
+                });
+
+                availabilityInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        addAvailabilityBtn.click();
+                    }
+                });
+            }
+
+            // Form submission
+            if (profileForm) {
+                profileForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    // Clear previous alerts
+                    if (profileAlert) {
+                        profileAlert.innerHTML = '';
+                    }
+
+                    // Validate form
+                    const fullName = document.getElementById('fullName').value.trim();
+                    const program = document.getElementById('program').value.trim();
+                    const yearLevel = document.getElementById('yearLevel').value;
+                    const bio = document.getElementById('bio').value.trim();
+
+                    if (!fullName) {
+                        showAlert('Please enter your full name', 'error');
+                        return;
+                    }
+
+                    if (!program) {
+                        showAlert('Please enter your program/course', 'error');
+                        return;
+                    }
+
+                    if (!yearLevel) {
+                        showAlert('Please select your year level', 'error');
+                        return;
+                    }
+
+                    if (!bio) {
+                        showAlert('Please enter your biography', 'error');
+                        return;
+                    }
+
+                    // Show loading state
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    const originalText = submitButton.textContent;
+                    submitButton.textContent = 'Saving profile...';
+                    submitButton.disabled = true;
+
+                    // Simulate API call
+                    setTimeout(() => {
+                        // Mock profile save success
+                        mockProfileSave();
+
+                        submitButton.textContent = originalText;
+                        submitButton.disabled = false;
+                    }, 1500);
+                });
+            }
+        }
+
+        function addSubjectToList(subject) {
+            const subjectsList = document.getElementById('subjects-list');
+            if (!subjectsList) return;
+
+            const subjectElement = document.createElement('div');
+            subjectElement.className = 'd-flex align-items-center mb-1';
+            subjectElement.innerHTML = `
+                <span class="badge bg-light text-primary me-1 mb-1">${subject}</span>
+                <button type="button" class="btn btn-outline btn-sm ms-1" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+
+            subjectsList.appendChild(subjectElement);
+        }
+
+        function addExpertiseToList(expertise) {
+            const expertiseList = document.getElementById('expertise-list');
+            if (!expertiseList) return;
+
+            const expertiseElement = document.createElement('div');
+            expertiseElement.className = 'd-flex align-items-center mb-1';
+            expertiseElement.innerHTML = `
+                <span class="badge bg-light text-secondary me-1 mb-1">${expertise}</span>
+                <button type="button" class="btn btn-outline btn-sm ms-1" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+
+            expertiseList.appendChild(expertiseElement);
+        }
+
+        function addAvailabilityToList(day) {
+            const availabilityList = document.getElementById('availability-list');
+            if (!availabilityList) return;
+
+            const availabilityElement = document.createElement('div');
+            availabilityElement.className = 'd-flex align-items-center mb-1';
+            availabilityElement.innerHTML = `
+                <span class="badge bg-light text-success me-1 mb-1">${day}</span>
+                <button type="button" class="btn btn-outline btn-sm ms-1" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+
+            availabilityList.appendChild(availabilityElement);
+        }
+
+        function mockProfileSave() {
+            // In a real app, this would send data to a backend API
+            // For mock purposes, we'll just show success
+
+            showAlert('Profile saved successfully!', 'success');
+
+            // Redirect to tutor dashboard after successful save
+            setTimeout(() => {
+                window.location.href = 'tutor-dashboard.html';
+            }, 1500);
+        }
+
+        // Helper function to show alerts
+        function showAlert(message, type) {
+            // Remove any existing alerts
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) existingAlert.remove();
+
+            // Create new alert
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type} mt-3`;
+            alert.innerHTML = `
+                <span>${message}</span>
+                <button class="alert-close">&times;</button>
+            `;
+
+            // Add to form
+            const form = document.getElementById('profile-form');
+            if (form) {
+                form.prepend(alert);
+            } else {
+                document.body.prepend(alert);
+            }
+
+            // Add close functionality
+            alert.querySelector('.alert-close').addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentElement) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Management - StudyLink Admin</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container d-flex justify-content-between align-items-center>
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                StudyLink
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="navbar-nav>
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="find-tutor.html" class="nav-link">Find a Tutor</a></li>
+                <li><a href="tutor-profile.html" class="nav-link">Become a Tutor</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="register.html" class="nav-link">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header py-4 bg-light>
+        <div class="container>
+            <h1><i class="fas fa-exclamation-triangle me-2></i>Report Management</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="report-management-section py-4>
+        <div class="container>
+            <!-- Alert Message -->
+            <div id="reports-alert></div>
+
+            <!-- Search and Filter -->
+            <div class="row mb-4>
+                <div class="col-md-6>
+                    <div class="input-group>
+                        <input type="text" class="form-control" id="report-search" placeholder="Search reports...">
+                        <button class="btn btn-outline-secondary" type="button" id="report-search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="col-md-6>
+                    <div class="row g-3>
+                        <div class="col-md-4>
+                            <label for="report-reason-filter" class="form-label">Reason</label>
+                            <select class="form-select" id="report-reason-filter">
+                                <option value="">All Reasons</option>
+                                <option value="Inappropriate Content">Inappropriate Content</option>
+                                <option value="Harassment">Harassment</option>
+                                <option value="False Information">False Information</option>
+                                <option value="Spam">Spam</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4>
+                            <label for="report-status-filter" class="form-label">Status</label>
+                            <select class="form-select" id="report-status-filter">
+                                <option value="">All Statuses</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Under Review">Under Review</option>
+                                <option value="Resolved">Resolved</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4>
+                            <button class="btn btn-outline-secondary w-100" id="apply-filters-btn">Apply Filters</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports Table -->
+            <div class="table-responsive>
+                <table class="table table-hover" id="reports-table>
+                    <thead>
+                        <tr>
+                            <th>Reported User</th>
+                            <th>Reason</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Reports will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer mt-5>
+        <div class="container>
+            <div class="row g-4>
+                <div class="col-md-3 col-sm-6>
+                    <h3>StudyLink</h3>
+                    <p>A peer tutoring platform designed for CSU students to connect, learn, and succeed together.</p>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="find-tutor.html">Find a Tutor</a></li>
+                        <li><a href="tutor-profile.html">Become a Tutor</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Support</h3>
+                    <ul class="footer-links>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Follow Us</h3>
+                    <div class="social-icons>
+                        <a href="#" class="text-me-2><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-me-2><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-me-2><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4 pt-3 border-top>
+                <p>&copy; 2026 StudyLink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/mock-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load reports data
+            loadReports();
+
+            // Initialize search and filter functionality
+            initializeFilters();
+        });
+
+        function loadReports() {
+            const reportsTableBody = document.querySelector('#reports-table tbody');
+            const reportsAlert = document.getElementById('reports-alert');
+
+            if (!reportsTableBody) return;
+
+            // Mock reports data
+            const mockReports = [
+                {
+                    id: 1,
+                    reportedUser: "Alex Rivera",
+                    reportedUserAvatar: "https://via.placeholder.com/40x40?text=AR",
+                    reason: "Inappropriate Content",
+                    description: "User shared inappropriate messages during a tutoring session.",
+                    date: "2026-09-10",
+                    status: "Pending"
+                },
+                {
+                    id: 2,
+                    reportedUser: "Maria Santos",
+                    reportedUserAvatar: "https://via.placeholder.com/40x40?text=MS",
+                    reason: "Harassment",
+                    description: "User reported receiving unwanted messages from another user.",
+                    date: "2026-09-08",
+                    status: "Under Review"
+                },
+                {
+                    id: 3,
+                    reportedUser: "Juan Dela Cruz",
+                    reportedUserAvatar: "https://via.placeholder.com/40x40?text=JD",
+                    reason: "False Information",
+                    description: "User accused of providing incorrect information during tutoring sessions.",
+                    date: "2026-09-05",
+                    status: "Resolved"
+                },
+                {
+                    id: 4,
+                    reportedUser: "Roberto Lim",
+                    reportedUserAvatar: "https://via.placeholder.com/40x40?text=RL",
+                    reason: "Spam",
+                    description: "User reported sending spam messages to multiple users.",
+                    date: "2026-09-07",
+                    status: "Pending"
+                },
+                {
+                    id: 5,
+                    reportedUser: "Sophia Chen",
+                    reportedUserAvatar: "https://via.placeholder.com/40x40?text=SC",
+                    reason: "Inappropriate Content",
+                    description: "User used inappropriate language in a tutoring session.",
+                    date: "2026-09-09",
+                    status: "Under Review"
+                }
+            ];
+
+            reportsTableBody.innerHTML = '';
+
+            if (mockReports.length === 0) {
+                reportsTableBody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4">No reports found.</td></tr>';
+                return;
+            }
+
+            mockReports.forEach(report => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="${report.reportedUserAvatar}" alt="${report.reportedUser}" class="rounded-circle me-2" width="30" height="30">
+                            <span>${report.reportedUser}</small>
+                        </div>
+                    </td>
+                    <td>${report.reason}</td>
+                    <td>${report.description}</td>
+                    <td>${formatDate(report.date)}</td>
+                    <td>
+                        <span class="badge bg-${report.status === 'Pending' ? 'warning' : report.status === 'Under Review' ? 'info' : 'success'}">${report.status}</span>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-outline" onclick="reviewReport(${report.id})">Review</button>
+                    </td>
+                `;
+                reportsTableBody.appendChild(row);
+            });
+        }
+
+        function initializeFilters() {
+            const searchBtn = document.getElementById('report-search-btn');
+            const searchInput = document.getElementById('report-search');
+            const reasonFilter = document.getElementById('report-reason-filter');
+            const statusFilter = document.getElementById('report-status-filter');
+            const applyFiltersBtn = document.getElementById('apply-filters-btn');
+
+            // Search functionality
+            if (searchBtn && searchInput) {
+                searchBtn.addEventListener('click', function() {
+                    filterReports();
+                });
+
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        searchBtn.click();
+                    }
+                });
+            }
+
+            // Apply filters button
+            if (applyFiltersBtn) {
+                applyFiltersBtn.addEventListener('click', function() {
+                    filterReports();
+                });
+            }
+
+            // Auto-filter when filters change
+            if (reasonFilter) {
+                reasonFilter.addEventListener('change', function() {
+                    filterReports();
+                });
+            }
+
+            if (statusFilter) {
+                statusFilter.addEventListener('change', function() {
+                    filterReports();
+                });
+            }
+        }
+
+        function filterReports() {
+            const searchTerm = document.getElementById('report-search') ? document.getElementById('report-search').value.toLowerCase() : '';
+            const reasonFilter = document.getElementById('report-reason-filter') ? document.getElementById('report-reason-filter').value : '';
+            const statusFilter = document.getElementById('report-status-filter') ? document.getElementById('report-status-filter').value : '';
+            const reportsTableBody = document.querySelector('#reports-table tbody');
+
+            if (!reportsTableBody) return;
+
+            // Mock reports data (same as in loadReports)
+            const mockReports = [
+                {
+                    id: 1,
+                    reportedUser: "Alex Rivera",
+                    reportedUserAvatar: "https://via.placeholder.com/40x40?text=AR",
+                    reason: "Inappropriate Content",
+                    description: "User shared inappropriate messages during a tutoring session.",
+                    date: "2026-09-10",
+                    status: "Pending"
+                },
+                {
+                    id: 2,
+                    reportedUser: "Maria Santos",
+                    reportedUserAvatar: "https://via.placeholder.com/40x40?text=MS",
+                    reason: "Harassment",
+                    description: "User reported receiving unwanted messages from another user.",
+                    date: "2026-09-08",
+                    status: "Under Review"
+                },
+                {
+                    id: 3,
+                    reportedUser: "Juan Dela Cruz",
+                    reportedUserAvatar: "https://via.placeholder.com/40x40?text=JD",
+                    reason: "False Information",
+                    description: "User accused of providing incorrect information during tutoring sessions.",
+                    date: "2026-09-05",
+                    status: "Resolved"
+                },
+                {
+                    id: 4,
+                    reportedUser: "Roberto Lim",
+                    reportedUserAvatar: "https://via.placeholder.com/40x40?text=RL",
+                    reason: "Spam",
+                    description: "User reported sending spam messages to multiple users.",
+                    date: "2026-09-07",
+                    status: "Pending"
+                },
+                {
+                    id: 5,
+                    reportedUser: "Sophia Chen",
+                    reportedUserAvatar: "https://via.placeholder.com/40x40?text=SC",
+                    reason: "Inappropriate Content",
+                    description: "User used inappropriate language in a tutoring session.",
+                    date: "2026-09-09",
+                    status: "Under Review"
+                }
+            ];
+
+            reportsTableBody.innerHTML = '';
+
+            // Filter reports
+            const filteredReports = mockReports.filter(report => {
+                // Search filter
+                if (searchTerm &&
+                    !report.reportedUser.toLowerCase().includes(searchTerm) &&
+                    !report.reason.toLowerCase().includes(searchTerm) &&
+                    !report.description.toLowerCase().includes(searchTerm)) {
+                    return false;
+                }
+
+                // Reason filter
+                if (reasonFilter && report.reason !== reasonFilter) {
+                    return false;
+                }
+
+                // Status filter
+                if (statusFilter && report.status !== statusFilter) {
+                    return false;
+                }
+
+                return true;
+            });
+
+            if (filteredReports.length === 0) {
+                reportsTableBody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4">No reports match the current filters.</td></tr>';
+                return;
+            }
+
+            // Add filtered reports to table
+            filteredReports.forEach(report => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="${report.reportedUserAvatar}" alt="${report.reportedUser}" class="rounded-circle me-2" width="30" height="30">
+                            <span>${report.reportedUser}</spn>
+                        </div>
+                    </td>
+                    <td>${report.reason}</td>
+                    <td>${report.description}</td>
+                    <td>${formatDate(report.date)}</td>
+                    <td>
+                        <span class="badge bg-${report.status === 'Pending' ? 'warning' : report.status === 'Under Review' ? 'info' : 'success'}">${report.status}</span>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-outline" onclick="reviewReport(${report.id})">Review</button>
+                    </td>
+                `;
+                reportsTableBody.appendChild(row);
+            });
+        }
+
+        // Admin action functions
+        function reviewReport(id) {
+            showAlert(`Reviewing report ID: ${id}`, 'info');
+            // In a real app, this would navigate to a detailed report view
+        }
+
+        // Helper functions
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        // Helper function to show alerts
+        function showAlert(message, type) {
+            // Remove any existing alerts
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) existingAlert.remove();
+
+            // Create new alert
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <span>${message}</span>
+                <button class="alert-close">&times;</button>
+            `;
+
+            // Add to alert container or body
+            const container = document.getElementById('reports-alert');
+            if (container) {
+                container.innerHTML = ''; // Clear previous alerts
+                container.appendChild(alert);
+            } else {
+                document.body.prepend(alert);
+            }
+
+            // Add close functionality
+            alert.querySelector('.alert-close').addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentElement) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

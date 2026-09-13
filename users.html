@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - StudyLink Admin</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="navbar-brand">
+                <i class="fas fa-graduation-cap"></i>
+                StudyLink
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="navbar-nav">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="find-tutor.html" class="nav-link">Find a Tutor</a></li>
+                <li><a href="tutor-profile.html" class="nav-link">Become a Tutor</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="login.html" class="nav-link">Login</a></li>
+                <li><a href="register.html" class="nav-link">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header py-4 bg-light">
+        <div class="container">
+            <h1><i class="fas fa-users me-2"></i>User Management</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="user-management-section py-4">
+        <div class="container">
+            <!-- Alert Message -->
+            <div id="users-alert"></div>
+
+            <!-- Search and Filter -->
+            <div class="row mb-4>
+                <div class="col-md-6>
+                    <div class="input-group>
+                        <input type="text" class="form-control" id="user-search" placeholder="Search users...">
+                        <button class="btn btn-outline-secondary" type="button" id="user-search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="col-md-6>
+                    <div class="row g-3>
+                        <div class="col-md-4>
+                            <label for="user-type-filter" class="form-label">User Type</label>
+                            <select class="form-select" id="user-type-filter">
+                                <option value="">All Types</option>
+                                <option value="student">Student</option>
+                                <option value="tutor">Tutor</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4>
+                            <label for="user-status-filter" class="form-label">Status</label>
+                            <select class="form-select" id="user-status-filter">
+                                <option value="">All Statuses</option>
+                                <option value="Active">Active</option>
+                                <option value="Suspended">Suspended</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4>
+                            <button class="btn btn-outline-secondary w-100" id="apply-filters-btn">Apply Filters</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Table -->
+            <div class="table-responsive>
+                <table class="table table-hover" id="users-table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Student ID</th>
+                            <th>Email</th>
+                            <th>User Type</th>
+                            <th>Status</th>
+                            <th>Date Registered</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Users will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer mt-5>
+        <div class="container>
+            <div class="row g-4>
+                <div class="col-md-3 col-sm-6>
+                    <h3>StudyLink</h3>
+                    <p>A peer tutoring platform designed for CSU students to connect, learn, and succeed together.</p>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="find-tutor.html">Find a Tutor</a></li>
+                        <li><a href="tutor-profile.html">Become a Tutor</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Support</h3>
+                    <ul class="footer-links>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6>
+                    <h3>Follow Us</h3>
+                    <div class="social-icons>
+                        <a href="#" class="text-me-2><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-me-2><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-me-2><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4 pt-3 border-top>
+                <p>&copy; 2026 StudyLink. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/mock-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load users data
+            loadUsers();
+
+            // Initialize search and filter functionality
+            initializeFilters();
+        });
+
+        function loadUsers() {
+            const usersTableBody = document.querySelector('#users-table tbody');
+            const usersAlert = document.getElementById('users-alert');
+
+            if (!usersTableBody) return;
+
+            // Mock users data
+            const mockUsers = [
+                {
+                    id: 1,
+                    name: "Alex Rivera",
+                    avatar: "https://via.placeholder.com/40x40?text=AR",
+                    studentId: "2022-12345",
+                    email: "alex.rivera@csu.edu.ph",
+                    userType: "student",
+                    status: "Active",
+                    dateRegistered: "2026-09-01"
+                },
+                {
+                    id: 2,
+                    name: "Maria Garcia",
+                    avatar: "https://via.placeholder.com/40x40?text=MG",
+                    studentId: "2022-67890",
+                    email: "maria.garcia@csu.edu.ph",
+                    userType: "student",
+                    status: "Active",
+                    dateRegistered: "2026-09-02"
+                },
+                {
+                    id: 3,
+                    name: "Juan Dela Cruz",
+                    avatar: "https://via.placeholder.com/40x40?text=JD",
+                    studentId: "2021-54321",
+                    email: "juan.delacruz@csu.edu.ph",
+                    userType: "tutor",
+                    status: "Active",
+                    dateRegistered: "2026-08-15"
+                },
+                {
+                    id: 4,
+                    name: "Roberto Lim",
+                    avatar: "https://via.placeholder.com/40x40?text=RL",
+                    studentId: "2022-54321",
+                    email: "roberto.lim@csu.edu.ph",
+                    userType: "tutor",
+                    status: "Active",
+                    dateRegistered: "2026-09-05"
+                },
+                {
+                    id: 5,
+                    name: "Sophia Chen",
+                    avatar: "https://via.placeholder.com/40x40?text=SC",
+                    studentId: "2022-98765",
+                    email: "sophia.chen@csu.edu.ph",
+                    userType: "student",
+                    status: "Suspended",
+                    dateRegistered: "2026-09-03"
+                },
+                {
+                    id: 6,
+                    name: "Carlos Mendoza",
+                    avatar: "https://via.placeholder.com/40x40?text=CM",
+                    studentId: "2022-11111",
+                    email: "carlos.mendoza@csu.edu.ph",
+                    userType: "student",
+                    status: "Active",
+                    dateRegistered: "2026-09-04"
+                },
+                {
+                    id: 7,
+                    name: "Ana Rodriguez",
+                    avatar: "https://via.placeholder.com/40x40?text=AR",
+                    studentId: "2022-22222",
+                    email: "ana.rodriguez@csu.edu.ph",
+                    userType: "tutor",
+                    status: "Active",
+                    dateRegistered: "2026-09-06"
+                }
+            ];
+
+            usersTableBody.innerHTML = '';
+
+            if (mockUsers.length === 0) {
+                usersTableBody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4">No users found.</td></tr>';
+                return;
+            }
+
+            mockUsers.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="${user.avatar}" alt="${user.name}" class="rounded-circle me-2" width="30" height="30">
+                            <span>${user.name}</span>
+                        </div>
+                    </td>
+                    <td>${user.studentId}</td>
+                    <td>${user.email}</td>
+                    <td>
+                        <span class="badge bg-${user.userType === 'tutor' ? 'success' : 'info'}">${user.userType}</span>
+                    </td>
+                    <td>
+                        <span class="bg-${user.status === 'Active' ? 'success' : user.status === 'Suspended' ? 'danger' : 'warning'}">${user.status}</span>
+                    </td>
+                    <td>${formatDate(user.dateRegistred)}</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-outline" onclick="viewUser(${user.id})">View</button
+                            <button type="button" class="btn btn-sm btn-outline" onclick="editUser(${user.id})">Edit</button>
+                            ${user.status === 'Active' ?
+                                `<button type="button" class="btn btn-sm btn-outline" onclick="suspendUser(${user.id})">Suspend</button>` :
+                                `<button type="button" class="btn btn-sm btn-outline" onclick="activateUser(${user.id})">Activate</button>`
+                            }
+                        </div>
+                    </td>
+                `;
+                usersTableBody.appendChild(row);
+            });
+        }
+
+        function initializeFilters() {
+            const searchBtn = document.getElementById('user-search-btn');
+            const searchInput = document.getElementById('user-search');
+            const typeFilter = document.getElementById('user-type-filter');
+            const statusFilter = document.getElementById('user-status-filter');
+            const applyFiltersBtn = document.getElementById('apply-filters-btn');
+
+            // Search functionality
+            if (searchBtn && searchInput) {
+                searchBtn.addEventListener('click', function() {
+                    filterUsers();
+                });
+
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        searchBtn.click();
+                    }
+                });
+            }
+
+            // Apply filters button
+            if (applyFiltersBtn) {
+                applyFiltersBtn.addEventListener('click', function() {
+                    filterUsers();
+                });
+            }
+
+            // Auto-filter when filters change
+            if (typeFilter) {
+                typeFilter.addEventListener('change', function() {
+                    filterUsers();
+                });
+            }
+
+            if (statusFilter) {
+                statusFilter.addEventListener('change', function() {
+                    filterUsers();
+                });
+            }
+        }
+
+        function filterUsers() {
+            const searchTerm = document.getElementById('user-search') ? document.getElementById('user-search').value.toLowerCase() : '';
+            const typeFilter = document.getElementById('user-type-filter') ? document.getElementById('user-type-filter').value : '';
+            const statusFilter = document.getElementById('user-status-filter') ? document.getElementById('user-status-filter').value : '';
+            const usersTableBody = document.querySelector('#users-table tbody');
+
+            if (!usersTableBody) return;
+
+            // Mock users data (same as in loadUsers)
+            const mockUsers = [
+                {
+                    id: 1,
+                    name: "Alex Rivera",
+                    avatar: "https://via.placeholder.com/40x40?text=AR",
+                    studentId: "2022-12345",
+                    email: "alex.rivera@csu.edu.ph",
+                    userType: "student",
+                    status: "Active",
+                    dateRegistered: "2026-09-01"
+                },
+                {
+                    id: 2,
+                    name: "Maria Garcia",
+                    avatar: "https://via.placeholder.com/40x40?text=MG",
+                    studentId: "2022-67890",
+                    email: "maria.garcia@csu.edu.ph",
+                    userType: "student",
+                    status: "Active",
+                    dateRegistered: "2026-09-02"
+                },
+                {
+                    id: 3,
+                    name: "Juan Dela Cruz",
+                    avatar: "https://via.placeholder.com/40x40?text=JD",
+                    studentId: "2021-54321",
+                    email: "juan.delacruz@csu.edu.ph",
+                    userType: "tutor",
+                    status: "Active",
+                    dateRegistered: "2026-08-15"
+                },
+                {
+                    id: 4,
+                    name: "Roberto Lim",
+                    avatar: "https://via.placeholder.com/40x40?text=RL",
+                    studentId: "2022-54321",
+                    email: "roberto.lim@csu.edu.ph",
+                    userType: "tutor",
+                    status: "Active",
+                    dateRegistered: "2026-09-05"
+                },
+                {
+                    id: 5,
+                    name: "Sophia Chen",
+                    avatar: "https://via.placeholder.com/40x40?text=SC",
+                    studentId: "2022-98765",
+                    email: "sophia.chen@csu.edu.ph",
+                    userType: "student",
+                    status: "Suspended",
+                    dateRegistered: "2026-09-03"
+                },
+                {
+                    id: 6,
+                    name: "Carlos Mendoza",
+                    avatar: "https://via.placeholder.com/40x40?text=CM",
+                    studentId: "2022-11111",
+                    email: "carlos.mendoza@csu.edu.ph",
+                    userType: "student",
+                    status: "Active",
+                    dateRegistered: "2026-09-04"
+                },
+                {
+                    id: 7,
+                    name: "Ana Rodriguez",
+                    avatar: "https://via.placeholder.com/40x40?text=AR",
+                    studentId: "2022-22222",
+                    email: "ana.rodriguez@csu.edu.ph",
+                    userType: "tutor",
+                    status: "Active",
+                    dateRegistered: "2026-09-06"
+                }
+            ];
+
+            usersTableBody.innerHTML = '';
+
+            // Filter users
+            const filteredUsers = mockUsers.filter(user => {
+                // Search filter
+                if (searchTerm &&
+                    !user.name.toLowerCase().includes(searchTerm) &&
+                    !user.studentId.toLowerCase().includes(searchTerm) &&
+                    !user.email.toLowerCase().includes(searchTerm)) {
+                    return false;
+                }
+
+                // Type filter
+                if (typeFilter && user.userType !== typeFilter) {
+                    return false;
+                }
+
+                // Status filter
+                if (statusFilter && user.status !== statusFilter) {
+                    return false;
+                }
+
+                return true;
+            });
+
+            if (filteredUsers.length === 0) {
+                usersTableBody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4">No users match the current filters.</td></tr>';
+                return;
+            }
+
+            // Add filtered users to table
+            filteredUsers.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="${user.avatar}" alt="${user.name}" class="rounded-circle me-2" width="30" height="30">
+                            <span>${user.name}</span>
+                        </div>
+                    </td>
+                    <td>${user.studentId}</td>
+                    <td>${user.email}</td>
+                    <td>
+                        <span class="badge bg-${user.userType === 'tutor' ? 'success' : 'info'}">${user.userType}</span>
+                    </td>
+                    <td>
+                        <span class="badge bg-${user.status === 'Active' ? 'success' : user.status === 'Suspended' ? 'danger' : 'warning'}">${user.status}</span>
+                    </td>
+                    <td>${formatDate(user.dateRegistered)}</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-outline" onclick="viewUser(${user.id})">View</button>
+                            <button type="button" class="btn btn-sm btn-outline" onclick="editUser(${user.id})">Edit</button>
+                            ${user.status === 'Active' ?
+                                `<button type="button" class="btn btn-sm btn-outline" onclick="suspendUser(${user.id})">Suspend</button>` :
+                                `<button type="button" class="btn btn-sm btn-outline" onclick="activateUser(${user.id})">Activate</button>`
+                            }
+                        </div>
+                    </td>
+                `;
+                usersTableBody.appendChild(row);
+            });
+        }
+
+        // Admin action functions
+        function viewUser(id) {
+            showAlert(`Viewing user details for user ID: ${id}`, 'info');
+        }
+
+        function editUser(id) {
+            showAlert(`Editing user details for user ID: ${id}`, 'info');
+        }
+
+        function suspendUser(id) {
+            showAlert(`User ID: ${id} has been suspended`, 'warning');
+            // In a real app, this would send an API request to suspend the user
+            // Refresh the list to reflect the change
+            setTimeout(() => {
+                loadUsers();
+            }, 1000);
+        }
+
+        function activateUser(id) {
+            showAlert(`User ID: ${id} has been activated`, 'success');
+            // In a real app, this would send an API request to activate the user
+            // Refresh the list to reflect the change
+            setTimeout(() => {
+                loadUsers();
+            }, 1000);
+        }
+
+        // Helper functions
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        // Helper function to show alerts
+        function showAlert(message, type) {
+            // Remove any existing alerts
+            const existingAlert = document.querySelector('.alert');
+            if (existingAlert) existingAlert.remove();
+
+            // Create new alert
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <span>${message}</span>
+                <button class="alert-close">&times;</button>
+            `;
+
+            // Add to alert container or body
+            const container = document.getElementById('users-alert');
+            if (container) {
+                container.innerHTML = ''; // Clear previous alerts
+                container.appendChild(alert);
+            } else {
+                document.body.prepend(alert);
+            }
+
+            // Add close functionality
+            alert.querySelector('.alert-close').addEventListener('click', function() {
+                this.parentElement.remove();
+            });
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentElement) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
